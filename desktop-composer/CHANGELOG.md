@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.3.0
+
+  Hide icon row until focus in r1
+  Extend reveal hide for toolbar
+
 0.1.0
 
   Add .gitignore
