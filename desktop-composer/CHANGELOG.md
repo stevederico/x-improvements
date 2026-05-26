@@ -13,6 +13,12 @@
   Add min-w-0 to flex-1
   break-all + no spellcheck
 
+0.10.31
+
+  Remove native title tooltips
+  Fix double tooltip overlap
+  Keep only custom pills
+
 0.3.0
 
   Hide icon row until focus in r1
