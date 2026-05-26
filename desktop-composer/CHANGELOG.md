@@ -125,6 +125,11 @@
   Post button now enables + turns white as soon as there is any text
   Disabled only when empty or over limit
 
+0.10.18
+
+  Make countdown circle larger (24px)
+  r=10, updated dash values and text size
+
 0.1.0
 
   Add .gitignore
