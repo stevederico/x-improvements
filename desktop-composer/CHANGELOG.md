@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.50
+
+  Fix Grok icon paths to match reference
+  Thicker frame, bolder slash, accurate pointer
+
 0.10.49
 
   Fix globe icon bright white
