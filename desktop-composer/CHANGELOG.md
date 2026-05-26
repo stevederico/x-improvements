@@ -174,6 +174,10 @@
   Force empty DOM on clear so placeholder reappears
   Fix :empty after contenteditable backspace debris
 
+0.10.28
+
+  Remove purple clickable styling from "mention" in Who can reply dropdown
+
 0.1.0
 
   Add .gitignore
