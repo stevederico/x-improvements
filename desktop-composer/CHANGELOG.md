@@ -5,6 +5,11 @@
   Hide icon row until focus in r1
   Extend reveal hide for toolbar
 
+0.4.0
+
+  Move audience and reply controls to header bar outside card
+  Remove them from content area in r1
+
 0.1.0
 
   Add .gitignore
