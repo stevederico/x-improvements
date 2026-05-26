@@ -219,29 +219,32 @@
 
     const updateCount = () => {
       const len = [...(editor.innerText || '')].length;
-      if (len === 0) {
+      const remaining = LIMIT - len;
+
+      const isEmpty = len === 0;
+      const isOver = remaining < 0;
+
+      if (isEmpty) {
         countWrap.classList.remove("flex");
         countWrap.classList.add("hidden");
-        postBtn.disabled = true;
-        return;
+      } else {
+        countWrap.classList.remove("hidden");
+        countWrap.classList.add("flex");
       }
-      countWrap.classList.remove("hidden");
-      countWrap.classList.add("flex");
 
-      const remaining = LIMIT - len;
       countProgress.style.strokeDashoffset = CIRC * (1 - Math.min(len / LIMIT, 1));
-      const color = remaining < 0 ? "#f4212e" : remaining <= 20 ? "#ffd400" : "#7856FF";
+      const color = isOver ? "#f4212e" : remaining <= 20 ? "#ffd400" : "#7856FF";
       countProgress.setAttribute("stroke", color);
 
       if (remaining <= 20) {
         countText.classList.remove("hidden");
         countText.textContent = remaining;
-        countText.style.color = remaining < 0 ? "#f4212e" : "#71767b";
+        countText.style.color = isOver ? "#f4212e" : "#71767b";
       } else {
         countText.classList.add("hidden");
       }
 
-      postBtn.disabled = remaining < 0;
+      postBtn.disabled = isEmpty || isOver;
     };
 
     // combined audience + reply popup (single icon trigger)

@@ -120,6 +120,11 @@
   Move count number inside the ring
   Absolute centered text over the SVG counter (9px bold)
 
+0.10.17
+
+  Post button now enables + turns white as soon as there is any text
+  Disabled only when empty or over limit
+
 0.1.0
 
   Add .gitignore
