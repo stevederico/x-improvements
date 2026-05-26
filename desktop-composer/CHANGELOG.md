@@ -85,6 +85,11 @@
   Fix excessive line breaks when pasting multi-line text with @handles
   Better newline → <br> handling + paste re-highlight
 
+0.10.10
+
+  Improve character counter ring to better match real X
+  Move rotation to progress circle only for accurate gap position
+
 0.1.0
 
   Add .gitignore
