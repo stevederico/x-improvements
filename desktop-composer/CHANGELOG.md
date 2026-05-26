@@ -31,6 +31,12 @@
   Ring + number both dim gray
   Completely neutral
 
+0.10.34
+
+  Tighten spacing left of globe
+  Reduce gap + remove ml-1
+  Globe closer to divider
+
 0.3.0
 
   Hide icon row until focus in r1
