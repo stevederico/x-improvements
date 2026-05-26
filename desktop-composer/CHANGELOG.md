@@ -115,6 +115,11 @@
   Make plus icon color match other toolbar icons
   Remove explicit text-x-accent
 
+0.10.16
+
+  Move count number inside the ring
+  Absolute centered text over the SVG counter (9px bold)
+
 0.1.0
 
   Add .gitignore

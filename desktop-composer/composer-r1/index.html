@@ -118,17 +118,21 @@
           <div class="flex items-center">
             <!-- char countdown + add post -->
             <div id="countWrap" class="hidden items-center gap-3">
-              <svg id="countRing" width="20" height="20" viewBox="0 0 20 20">
-                <circle cx="10" cy="10" r="9" fill="none" stroke="#2F3336" stroke-width="2" />
-                <circle
-                  id="countProgress"
-                  cx="10" cy="10" r="9" fill="none"
-                  stroke="#7856FF" stroke-width="2" stroke-linecap="round"
-                  stroke-dasharray="56.549" stroke-dashoffset="56.549"
-                  style="transform: rotate(-90deg); transform-origin: 10px 10px;"
-                />
-              </svg>
-              <span id="countText" class="hidden text-sm text-x-dim"></span>
+              <div class="relative w-5 h-5 flex-shrink-0">
+                <svg id="countRing" width="20" height="20" viewBox="0 0 20 20" class="absolute inset-0">
+                  <circle cx="10" cy="10" r="9" fill="none" stroke="#2F3336" stroke-width="2" />
+                  <circle
+                    id="countProgress"
+                    cx="10" cy="10" r="9" fill="none"
+                    stroke="#7856FF" stroke-width="2" stroke-linecap="round"
+                    stroke-dasharray="56.549" stroke-dashoffset="56.549"
+                    style="transform: rotate(-90deg); transform-origin: 10px 10px;"
+                  />
+                </svg>
+                <span id="countText" 
+                      class="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-x-dim leading-none">
+                </span>
+              </div>
               <div class="h-7 w-px bg-x-line"></div>
 
               <!-- audience button now inside count area (swapped) -->
