@@ -70,6 +70,11 @@
   Make @mention purple in "Only accounts you mention" option
   Accent color for @handles
 
+0.10.7
+
+  Make @mention clickable with underline on hover
+  cursor-pointer + hover:underline
+
 0.1.0
 
   Add .gitignore
