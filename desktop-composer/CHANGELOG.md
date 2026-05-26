@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.51
+
+  Shrink counter to 11px
+  Show only when remaining <=10
+
 0.10.50
 
   Fix Grok icon paths to match reference
