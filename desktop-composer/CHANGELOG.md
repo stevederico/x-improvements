@@ -1,5 +1,11 @@
 - Review remaining compliance gaps
 
+0.10.55
+
+  Use provided grok png via css mask
+  Add hover support for masked icon
+  Commit root landing + asset
+
 0.10.54
 
   Change plus tooltip to Thread

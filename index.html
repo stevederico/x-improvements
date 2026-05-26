@@ -3,40 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Compose</title>
-  <style>
-    @font-face {
-      font-family: TwitterChirp;
-      src: url(https://abs.twimg.com/responsive-web/client-web/Chirp-Regular.80fda27a.woff2) format('woff2');
-      font-weight: 400; font-display: swap;
-    }
-    @font-face {
-      font-family: TwitterChirp;
-      src: url(https://abs.twimg.com/responsive-web/client-web/Chirp-Medium.f8e2739a.woff2) format('woff2');
-      font-weight: 500; font-display: swap;
-    }
-    @font-face {
-      font-family: TwitterChirp;
-      src: url(https://abs.twimg.com/responsive-web/client-web/Chirp-Bold.ebb56aba.woff2) format('woff2');
-      font-weight: 700; font-display: swap;
-    }
-  </style>
+  <title>x-improvements</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['TwitterChirp', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
           },
           colors: {
             x: {
               accent: "#7857ff",
-              accentHover: "#6a4ae6",
               ink: "#e7e9ea",
               dim: "#71767b",
               line: "#2f3336",
-              btn: "#3a3a3c",
             },
           },
         },
@@ -44,287 +25,55 @@
     };
   </script>
 </head>
-<body class="min-h-screen bg-black flex flex-col items-center p-8 font-sans text-x-ink">
-  <div class="w-full max-w-[620px] border border-x-line p-3">
-    <div class="flex gap-3">
-      <!-- avatar -->
-      <img
-        src="https://pbs.twimg.com/profile_images/545651207445184512/A6b1EStp_x96.jpeg"
-        alt="Steve Derico"
-        width="40"
-        height="40"
-        class="h-10 w-10 shrink-0 rounded-full object-cover"
-      />
+<body class="min-h-screen bg-black text-x-ink font-sans">
+  <div class="max-w-3xl mx-auto p-8">
+    <div class="mb-10">
+      <h1 class="text-4xl font-bold tracking-tight">x-improvements</h1>
+      <p class="text-x-dim mt-2 text-lg">Controlled experiments on the X compose box</p>
+    </div>
 
-      <div class="flex-1">
-        <!-- audience pill -->
-        <button
-          id="audienceBtn"
-          type="button"
-          class="group mb-1 hidden items-center gap-1 rounded-full border border-x-accent/60 px-3 py-1 text-sm font-bold text-x-accent transition hover:bg-x-accent/10"
-        >
-          Everyone
-          <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current">
-            <path d="M3.543 8.96l1.414-1.42L12 14.59l7.043-7.05 1.414 1.42L12 17.41 3.543 8.96z" />
-          </svg>
-        </button>
-
-        <!-- editor -->
-        <textarea
-          id="editor"
-          rows="1"
-          placeholder="What's happening?"
-          class="block w-full resize-none overflow-hidden bg-transparent py-2 text-xl text-x-ink placeholder:text-x-dim focus:outline-none"
-        ></textarea>
-
-        <!-- reply scope -->
-        <div class="relative">
-          <button
-            id="replyBtn"
-            type="button"
-            class="mt-2 hidden items-center gap-2 text-sm font-bold text-x-accent hover:underline"
-          >
-            <svg viewBox="0 0 24 24" class="h-[1.05rem] w-[1.05rem] fill-current">
-              <path d="M12 1.75C6.34 1.75 1.75 6.34 1.75 12S6.34 22.25 12 22.25 22.25 17.66 22.25 12 17.66 1.75 12 1.75zm-.25 10.48L10.5 17.5l-2-1.5v-3.5L7.5 9 5.03 7.59c1.42-2.24 3.89-3.75 6.72-3.84L11 6l-2 .5L8.5 9l5 1.5-1.75 1.73zM17 14v-3l-1.5-3 2.88-1.23c1.17 1.42 1.87 3.24 1.87 5.23 0 1.3-.3 2.52-.83 3.61L17 14z" />
-            </svg>
-            <span id="replyLabel">Everyone can reply</span>
-          </button>
-
-          <!-- who can reply menu -->
-          <div
-            id="replyMenu"
-            class="absolute left-0 top-9 z-50 hidden w-[360px] overflow-hidden rounded-2xl bg-black py-3 shadow-[0_0_15px_rgba(255,255,255,0.15)]"
-          >
-            <h2 class="px-4 pb-2 text-xl font-extrabold text-x-ink">Who can reply?</h2>
-            <div id="replyOptions"></div>
+    <div class="space-y-3">
+      <!-- Baseline -->
+      <a href="desktop-composer/baseline/index.html" 
+         class="block border border-x-line hover:border-x-accent/60 transition p-5 rounded-2xl group">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-lg">Baseline (control)</div>
+            <div class="text-sm text-x-dim">Frozen reference implementation • no changes</div>
           </div>
+          <div class="text-xs px-3 py-1 rounded-full border border-x-line text-x-dim group-hover:border-x-accent/50">Open</div>
         </div>
+      </a>
 
-        <!-- divider -->
-        <div id="divider" class="my-3 hidden h-px w-full bg-x-line"></div>
-
-        <!-- toolbar -->
-        <div class="mt-3 flex items-center justify-between">
-          <div class="-ml-2 flex items-center text-x-dim">
-            <button type="button" aria-label="Add photos or video" title="Add photos or video" class="rounded-full p-2 transition hover:bg-x-accent/10">
-              <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current"><path d="M15 7c1.105 0 2 .895 2 2s-.895 2-2 2-2-.895-2-2 .895-2 2-2z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.1 2.5c1.103 0 1.991-.001 2.709.058.728.06 1.368.185 1.96.487.941.48 1.707 1.245 2.186 2.185.302.593.428 1.233.487 1.961.059.718.058 1.606.058 2.71V14.1c0 1.103.001 1.991-.058 2.709-.06.728-.185 1.368-.487 1.96-.48.941-1.245 1.707-2.185 2.186-.593.302-1.233.428-1.961.487-.718.059-1.606.058-2.71.058H9.9c-1.103 0-1.991.001-2.709-.058-.728-.06-1.368-.185-1.96-.487-.941-.48-1.707-1.245-2.186-2.185-.302-.593-.428-1.233-.487-1.961-.059-.718-.058-1.606-.058-2.71V9.9c0-1.103-.001-1.991.058-2.709.06-.728.185-1.368.487-1.96.48-.941 1.245-1.707 2.185-2.186.593-.302 1.233-.428 1.961-.487.718-.059 1.606-.058 2.71-.058H14.1zM4.506 15.442c.006.473.017.865.045 1.203.05.606.142.954.276 1.217.288.565.746 1.023 1.31 1.31.264.135.612.228 1.217.277.617.05 1.41.051 2.546.051h4.2c.36 0 .685-.003.981-.005L7.96 12.373l-3.453 3.07zM9.9 4.5c-1.136 0-1.929 0-2.546.05-.605.05-.953.143-1.216.277-.565.288-1.023.746-1.31 1.31-.135.264-.228.612-.277 1.217C4.5 7.971 4.5 8.764 4.5 9.9v2.873l3.54-3.147 9.63 9.63c.07-.026.133-.053.192-.083.565-.288 1.023-.746 1.31-1.31.135-.264.228-.612.277-1.218.05-.616.051-1.409.051-2.545V9.9c0-1.136 0-1.929-.05-2.546-.05-.605-.143-.953-.277-1.216-.288-.565-.746-1.023-1.31-1.31-.264-.135-.612-.228-1.218-.277C16.03 4.5 15.236 4.5 14.1 4.5H9.9z"/></svg>
-            </button>
-            <button type="button" aria-label="Add a GIF" title="Add a GIF" class="rounded-full p-2 transition hover:bg-x-accent/10">
-              <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current"><path d="M8.623 9.25c.766 0 1.532.344 2.043.945l-1.021.86c-.256-.258-.682-.43-1.022-.43-.766 0-1.361.688-1.361 1.375 0 .773.595 1.375 1.361 1.375.255 0 .511-.086.682-.172v-.515H8.283v-1.032h2.383v2.149c-.51.601-1.192.945-2.043.945C7.091 14.75 5.9 13.547 5.9 12s1.191-2.75 2.723-2.75zm4.511 5.5h-1.447v-5.5h1.447v5.5zm4.766-5.5v1.46h-2.297v.86h1.702v1.461h-1.703v1.719h-1.447v-5.5H17.9z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.1 2.5c1.103 0 1.991-.001 2.709.058.728.06 1.368.185 1.96.487.941.48 1.707 1.245 2.186 2.185.302.593.428 1.233.487 1.961.059.718.058 1.606.058 2.71V14.1c0 1.103.001 1.991-.058 2.709-.06.728-.185 1.368-.487 1.96-.48.941-1.245 1.707-2.185 2.186-.593.302-1.233.428-1.961.487-.718.059-1.606.058-2.71.058H9.9c-1.103 0-1.991.001-2.709-.058-.728-.06-1.368-.185-1.96-.487-.941-.48-1.707-1.245-2.186-2.185-.302-.593-.428-1.233-.487-1.961-.059-.718-.058-1.606-.058-2.71V9.9c0-1.103-.001-1.991.058-2.709.06-.728.185-1.368.487-1.96.48-.941 1.245-1.707 2.185-2.186.593-.302 1.233-.428 1.961-.487.718-.059 1.606-.058 2.71-.058H14.1zm-4.2 2c-1.136 0-1.929 0-2.546.05-.605.05-.953.143-1.216.277-.565.288-1.023.746-1.31 1.31-.135.264-.228.612-.277 1.217C4.5 7.971 4.5 8.764 4.5 9.9v4.2c0 1.136 0 1.929.05 2.545.05.606.143.954.277 1.217.288.565.746 1.023 1.31 1.31.264.135.612.228 1.217.277.617.05 1.41.051 2.546.051h4.2c1.136 0 1.929 0 2.545-.05.606-.05.954-.143 1.217-.277.565-.288 1.023-.746 1.31-1.31.135-.264.228-.612.277-1.218.05-.616.051-1.409.051-2.545V9.9c0-1.136 0-1.929-.05-2.546-.05-.605-.143-.953-.277-1.216-.288-.565-.746-1.023-1.31-1.31-.264-.135-.612-.228-1.218-.277C16.03 4.5 15.236 4.5 14.1 4.5H9.9z"/></svg>
-            </button>
-            <button type="button" aria-label="Generate image" title="Generate image" class="rounded-full p-2 transition hover:bg-x-accent/10">
-              <svg viewBox="0 0 33 32" aria-hidden="true" class="h-5 w-5 fill-current"><path d="M12.745 20.54l10.97-8.19c.539-.4 1.307-.244 1.564.38 1.349 3.288.746 7.241-1.938 9.955-2.683 2.714-6.417 3.31-9.83 1.954l-3.728 1.745c5.347 3.697 11.84 2.782 15.898-1.324 3.219-3.255 4.216-7.692 3.284-11.693l.008.009c-1.351-5.878.332-8.227 3.782-13.031L33 0l-4.54 4.59v-.014L12.743 20.544m-2.263 1.987c-3.837-3.707-3.175-9.446.1-12.755 2.42-2.449 6.388-3.448 9.852-1.979l3.72-1.737c-.67-.49-1.53-1.017-2.515-1.387-4.455-1.854-9.789-.931-13.41 2.728-3.483 3.523-4.579 8.94-2.697 13.561 1.405 3.454-.899 5.898-3.22 8.364C1.49 30.2.666 31.074 0 32l10.478-9.466"/></svg>
-            </button>
-            <button type="button" aria-label="Add poll" title="Add poll" class="rounded-full p-2 transition hover:bg-x-accent/10">
-              <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current"><path d="M6 5c-1.1 0-2 .895-2 2s.9 2 2 2 2-.895 2-2-.9-2-2-2zM2 7c0-2.209 1.79-4 4-4s4 1.791 4 4-1.79 4-4 4-4-1.791-4-4zm20 1H12V6h10v2zM6 15c-1.1 0-2 .895-2 2s.9 2 2 2 2-.895 2-2-.9-2-2-2zm-4 2c0-2.209 1.79-4 4-4s4 1.791 4 4-1.79 4-4 4-4-1.791-4-4zm20 1H12v-2h10v2zM7 7c0 .552-.45 1-1 1s-1-.448-1-1 .45-1 1-1 1 .448 1 1z"/></svg>
-            </button>
-            <button type="button" aria-label="Add emoji" title="Add emoji" class="rounded-full p-2 transition hover:bg-x-accent/10">
-              <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current"><path d="M8.688 13.453c.067.13.137.248.215.367.683 1.058 1.875 1.658 3.1 1.655 1.225.005 2.416-.593 3.095-1.652.077-.119.146-.238.212-.367l1.38.588c-.07.188-.146.365-.237.545-.788 1.628-2.629 2.714-4.452 2.686-1.824.024-3.658-1.061-4.451-2.685-.092-.18-.169-.356-.238-.543l1.376-.594zM9.25 8c.828 0 1.5.796 1.5 1.9 0 1.105-.672 1.85-1.5 1.85s-1.5-.745-1.5-1.85c0-1.104.672-1.9 1.5-1.9zm5.5 0c.828 0 1.5.796 1.5 1.9 0 1.105-.672 1.85-1.5 1.85s-1.5-.745-1.5-1.85c0-1.104.672-1.9 1.5-1.9z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12.008 2c5.523 0 10 4.477 10 10s-4.477 10-10 10-10-4.477-10-10 4.477-10 10-10zm0 2c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8z"/></svg>
-            </button>
-            <button type="button" aria-label="Schedule post" title="Schedule post" class="rounded-full p-2 transition hover:bg-x-accent/10">
-              <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current"><path d="M6 3V2h2v1h6V2h2v1h1.5C18.88 3 20 4.119 20 5.5v2h-2v-2c0-.276-.22-.5-.5-.5H16v1h-2V5H8v1H6V5H4.5c-.28 0-.5.224-.5.5v12c0 .276.22.5.5.5h3v2h-3C3.12 20 2 18.881 2 17.5v-12C2 4.119 3.12 3 4.5 3H6zm9.5 8c-2.49 0-4.5 2.015-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.015 4.5-4.5-2.01-4.5-4.5-4.5zM9 15.5C9 11.91 11.91 9 15.5 9s6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5S9 19.09 9 15.5zm5.5-2.5h2v2.086l1.71 1.707-1.42 1.414-2.29-2.293V13z"/></svg>
-            </button>
-            <button type="button" aria-label="Tag location" title="Tag location" disabled class="rounded-full p-2 opacity-50 cursor-not-allowed">
-              <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current"><path d="M12 7c-1.93 0-3.5 1.57-3.5 3.5S10.07 14 12 14s3.5-1.57 3.5-3.5S13.93 7 12 7zm0 5c-.827 0-1.5-.673-1.5-1.5S11.173 9 12 9s1.5.673 1.5 1.5S12.827 12 12 12zm0-10c-4.687 0-8.5 3.813-8.5 8.5 0 5.967 7.621 11.116 7.945 11.332l.555.37.555-.37c.324-.216 7.945-5.365 7.945-11.332C20.5 5.813 16.687 2 12 2zm0 17.77c-1.665-1.241-6.5-5.196-6.5-9.27C5.5 6.916 8.416 4 12 4s6.5 2.916 6.5 6.5c0 4.073-4.835 8.028-6.5 9.27z"/></svg>
-            </button>
-            <button type="button" aria-label="Content disclosure" title="Content disclosure" class="rounded-full p-2 transition hover:bg-x-accent/10">
-              <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current"><path d="M3 2h18.61l-3.5 7 3.5 7H5v6H3V2zm2 12h13.38l-2.5-5 2.5-5H5v10z"/></svg>
-            </button>
+      <!-- r1 -->
+      <a href="desktop-composer/composer-r1/index.html" 
+         class="block border border-x-line hover:border-x-accent/60 transition p-5 rounded-2xl group">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-lg">composer-r1</div>
+            <div class="text-sm text-x-dim">First revision • standalone from baseline</div>
           </div>
-
-          <div class="flex items-center">
-            <!-- char countdown + add post -->
-            <div id="countWrap" class="hidden items-center gap-3">
-              <svg id="countRing" width="20" height="20" viewBox="0 0 20 20" class="-rotate-90">
-                <circle cx="10" cy="10" r="9" fill="none" stroke="#2F3336" stroke-width="2" />
-                <circle
-                  id="countProgress"
-                  cx="10" cy="10" r="9" fill="none"
-                  stroke="#7856FF" stroke-width="2" stroke-linecap="round"
-                  stroke-dasharray="56.549" stroke-dashoffset="56.549"
-                />
-              </svg>
-              <span id="countText" class="hidden text-sm text-x-dim"></span>
-              <div class="h-7 w-px bg-x-line"></div>
-              <button
-                id="addBtn"
-                type="button"
-                aria-label="Add post"
-                class="flex h-7 w-7 items-center justify-center rounded-full border border-[#536471] text-x-accent transition hover:bg-x-accent/10"
-              >
-                <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current"><path d="M11 11V4h2v7h7v2h-7v7h-2v-7H4v-2h7z" /></svg>
-              </button>
-            </div>
-
-            <button
-              id="postBtn"
-              type="button"
-              disabled
-              class="ml-3 rounded-full bg-x-btn px-5 py-1.5 text-sm font-bold text-x-ink/60 transition disabled:cursor-not-allowed enabled:bg-[#eff3f4] enabled:text-[#0f1419] enabled:hover:bg-[#d7dbdc]"
-            >
-              Post
-            </button>
-          </div>
+          <div class="text-xs px-3 py-1 rounded-full border border-x-line text-x-dim group-hover:border-x-accent/50">Open</div>
         </div>
+      </a>
+
+      <!-- r2 -->
+      <a href="desktop-composer/composer-r2/index.html" 
+         class="block border border-x-line hover:border-x-accent/60 transition p-5 rounded-2xl group">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-lg">composer-r2</div>
+            <div class="text-sm text-x-dim">Second revision • standalone from baseline</div>
+          </div>
+          <div class="text-xs px-3 py-1 rounded-full border border-x-line text-x-dim group-hover:border-x-accent/50">Open</div>
+        </div>
+      </a>
+
+      <div class="pt-4 text-xs text-x-dim">
+        Add new revisions as <span class="font-mono">composer-rN</span> folders inside <span class="font-mono">desktop-composer/</span>.<br>
+        Each revision should remain fully independent from baseline.
       </div>
     </div>
   </div>
-
-  <button
-    id="resetBtn"
-    type="button"
-    class="mt-4 rounded-full border border-x-line px-4 py-1.5 text-sm font-bold text-x-dim transition hover:bg-white/5 hover:text-x-ink"
-  >
-    Reset state
-  </button>
-
-  <script>
-    const editor = document.getElementById("editor");
-    const postBtn = document.getElementById("postBtn");
-    const audienceBtn = document.getElementById("audienceBtn");
-    const replyBtn = document.getElementById("replyBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const divider = document.getElementById("divider");
-    const replyMenu = document.getElementById("replyMenu");
-    const replyOptions = document.getElementById("replyOptions");
-    const replyLabel = document.getElementById("replyLabel");
-    const countWrap = document.getElementById("countWrap");
-    const countProgress = document.getElementById("countProgress");
-    const countText = document.getElementById("countText");
-
-    const LIMIT = 280;
-    const CIRC = 56.549; // 2πr, r=9
-
-    const updateCount = () => {
-      const len = [...editor.value].length;
-      if (len === 0) {
-        countWrap.classList.remove("flex");
-        countWrap.classList.add("hidden");
-        postBtn.disabled = true;
-        return;
-      }
-      countWrap.classList.remove("hidden");
-      countWrap.classList.add("flex");
-
-      const remaining = LIMIT - len;
-      countProgress.style.strokeDashoffset = CIRC * (1 - Math.min(len / LIMIT, 1));
-      const color = remaining < 0 ? "#f4212e" : remaining <= 20 ? "#ffd400" : "#7856FF";
-      countProgress.setAttribute("stroke", color);
-
-      if (remaining <= 20) {
-        countText.classList.remove("hidden");
-        countText.textContent = remaining;
-        countText.style.color = remaining < 0 ? "#f4212e" : "#71767b";
-      } else {
-        countText.classList.add("hidden");
-      }
-
-      postBtn.disabled = remaining < 0;
-    };
-
-    // who-can-reply menu
-    const stroke = (d) =>
-      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">${d}</svg>`;
-
-    const replyChoices = [
-      { value: "everyone", label: "Everyone", icon: `<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/>` },
-      { value: "follow", label: "Accounts you follow", icon: `<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M16 11l2 2 4-4"/>` },
-      { value: "network", label: "Accounts you follow and who they follow", icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>` },
-      { value: "mention", label: "Only accounts you mention", icon: `<circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/>` },
-      { value: "verified", label: "Verified accounts", icon: `<path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/>` },
-      { value: "regions", label: "Regions", icon: `<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>`, nav: true },
-    ];
-
-    let selected = "everyone";
-
-    const radio = (on) =>
-      on
-        ? `<span class="flex h-6 w-6 items-center justify-center rounded-full bg-x-accent">${stroke(`<path d="m5 12 4 4 10-10"/>`).replace('h-6 w-6', 'h-4 w-4 text-white')}</span>`
-        : `<span class="h-6 w-6 rounded-full border-2 border-x-dim"></span>`;
-
-    const chevron = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-x-dim"><path d="m9 18 6-6-6-6"/></svg>`;
-
-    const renderReplyOptions = () => {
-      replyOptions.innerHTML = replyChoices
-        .map(
-          (c) => `
-        <button type="button" data-value="${c.value}" class="flex w-full items-center gap-4 px-4 py-3 text-left transition hover:bg-white/5">
-          <span class="shrink-0 text-x-ink">${stroke(c.icon)}</span>
-          <span class="flex-1 text-[15px] font-bold leading-tight text-x-ink">${c.label}</span>
-          ${c.nav ? chevron : radio(c.value === selected)}
-        </button>`
-        )
-        .join("");
-    };
-    renderReplyOptions();
-
-    const closeReplyMenu = () => replyMenu.classList.add("hidden");
-
-    replyBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      replyMenu.classList.toggle("hidden");
-    });
-
-    replyOptions.addEventListener("click", (e) => {
-      const btn = e.target.closest("button[data-value]");
-      if (!btn) return;
-      const value = btn.dataset.value;
-      const choice = replyChoices.find((c) => c.value === value);
-      if (choice.nav) return; // Regions submenu — no-op
-      selected = value;
-      replyLabel.textContent = `${choice.label} can reply`;
-      renderReplyOptions();
-      closeReplyMenu();
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!replyMenu.classList.contains("hidden") && !replyMenu.contains(e.target) && e.target !== replyBtn) {
-        closeReplyMenu();
-      }
-    });
-
-    const reveal = () => {
-      audienceBtn.classList.replace("hidden", "inline-flex");
-      replyBtn.classList.replace("hidden", "inline-flex");
-      divider.classList.remove("hidden");
-    };
-
-    const hide = () => {
-      audienceBtn.classList.replace("inline-flex", "hidden");
-      replyBtn.classList.replace("inline-flex", "hidden");
-      divider.classList.add("hidden");
-    };
-
-    editor.addEventListener("focus", reveal);
-
-    const autoGrow = () => {
-      editor.style.height = "auto";
-      editor.style.height = editor.scrollHeight + "px";
-    };
-
-    editor.addEventListener("input", () => {
-      autoGrow();
-      updateCount();
-    });
-
-    postBtn.addEventListener("click", () => {
-      if (postBtn.disabled) return;
-      editor.value = "";
-      autoGrow();
-      updateCount();
-    });
-
-    resetBtn.addEventListener("click", () => {
-      editor.value = "";
-      editor.blur();
-      autoGrow();
-      updateCount();
-      hide();
-      selected = "everyone";
-      replyLabel.textContent = "Everyone can reply";
-      renderReplyOptions();
-      closeReplyMenu();
-    });
-  </script>
 </body>
 </html>
