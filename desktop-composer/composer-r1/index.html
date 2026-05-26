@@ -314,16 +314,19 @@
       const remaining = LIMIT - len;
 
       // Show in Free mode at bottom-right of editor (content area)
-      cursorCounter.style.right = "8px";
-      cursorCounter.style.bottom = "6px";
+      cursorCounter.style.right = "10px";
+      cursorCounter.style.bottom = "8px";
       cursorCounter.style.left = "auto";
       cursorCounter.style.top = "auto";
       cursorCounter.textContent = remaining;
-      cursorCounter.style.backgroundColor = remaining <= 0 ? "#f4212e" : "#1d9bf0";
-      cursorCounter.style.border = "1px solid #fff";
+      cursorCounter.style.backgroundColor = remaining <= 10 ? "#ff0000" : "#1d9bf0";
+      cursorCounter.style.border = "3px solid #fff";
       cursorCounter.style.color = "#fff";
-      cursorCounter.style.fontSize = "13px";
-      cursorCounter.style.padding = "2px 6px";
+      cursorCounter.style.fontSize = "16px";
+      cursorCounter.style.padding = "4px 10px";
+      cursorCounter.style.borderRadius = "6px";
+      cursorCounter.style.boxShadow = "0 0 0 2px #000";
+      cursorCounter.style.zIndex = "9999";
       cursorCounter.classList.remove("hidden");
     }
 

@@ -100,6 +100,11 @@
   Further improved visibility of bottom-right editor counter (larger font, solid colors, border)
   Always on in Free for now so user can see it working
 
+0.10.46
+
+  Made counter extremely prominent (16px font, 3px white border, bright red/blue, shadow, z-9999)
+  So it is impossible to miss at bottom-right inside editor in Free mode
+
 0.3.0
 
   Hide icon row until focus in r1
