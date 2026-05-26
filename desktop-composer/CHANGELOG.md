@@ -78,6 +78,12 @@
   Premium: counter completely hidden
   Replace purple with official X blue
 
+0.10.42
+
+  Free mode: hard 280 limit enforced in input (cannot type past)
+  Cursor-adjacent counter (next to caret) only for free when <=10 remaining
+  Removed old toolbar counter
+
 0.3.0
 
   Hide icon row until focus in r1

@@ -106,9 +106,13 @@
             id="editor"
             contenteditable="true"
             spellcheck="false"
-            class="block w-full min-h-[28px] py-2 text-xl text-x-ink focus:outline-none whitespace-pre-wrap break-all"
+            class="relative block w-full min-h-[28px] py-2 text-xl text-x-ink focus:outline-none whitespace-pre-wrap break-all"
             data-placeholder="What's happening?"
-          ></div>
+          >
+            <span id="cursorCounter"
+                  class="pointer-events-none absolute z-50 hidden select-none whitespace-nowrap rounded bg-black/80 px-1.5 py-px text-[10px] font-bold leading-none text-white shadow"
+                  style="font-size: 10px; line-height: 1;"></span>
+          </div>
 
           <!-- divider -->
           <div id="divider" class="my-3 hidden h-px w-full bg-x-line"></div>
@@ -154,14 +158,9 @@
           </div>
 
           <div class="flex items-center">
-            <!-- char countdown + add post -->
-            <div id="countWrap" class="hidden items-center gap-2">
-              <span id="countText" class="text-[11px] font-bold text-x-dim tabular-nums"></span>
-
-              <!-- audience button now inside count area (swapped) -->
-              <div class="relative">
-                <button
-                  id="audienceIcon"
+            <div class="relative">
+              <button
+                id="audienceIcon"
                   type="button"
                   aria-label="Audience and reply settings"
                   data-tooltip="Audience"
@@ -218,8 +217,7 @@
     const combinedPopup = document.getElementById("combinedPopup");
     const audienceOptions = document.getElementById("audienceOptions");
     const replyOptions = document.getElementById("replyOptions");
-    const countWrap = document.getElementById("countWrap");
-    const countText = document.getElementById("countText");
+    const cursorCounter = document.getElementById("cursorCounter");
 
     const LIMIT = 280;
     let isPremium = false; // false = Free (hard 280), true = Premium (long form)
@@ -299,22 +297,60 @@
       const isEmpty = len === 0;
       const isOver = remaining < 0;
 
-      // Free mode: only show when within 10 chars. Premium: always hidden.
-      const showCounter = !isPremium && !isEmpty && remaining <= 10;
-
-      if (showCounter) {
-        countWrap.classList.remove("hidden");
-        countWrap.classList.add("flex");
-        countText.textContent = remaining;
-        countText.style.color = isOver ? "#f4212e" : "#71767b";
-      } else {
-        countWrap.classList.remove("flex");
-        countWrap.classList.add("hidden");
-      }
-
-      // Hard stop for free users
+      // Hard stop for free users (cannot exceed 280)
       postBtn.disabled = isEmpty || (!isPremium && isOver);
     };
+
+    function updateCursorCounter() {
+      if (!cursorCounter) return;
+
+      if (isPremium) {
+        cursorCounter.classList.add("hidden");
+        return;
+      }
+
+      const text = editor.innerText || "";
+      const len = [...text].length;
+      const remaining = LIMIT - len;
+
+      if (len === 0 || remaining > 10) {
+        cursorCounter.classList.add("hidden");
+        return;
+      }
+
+      const sel = window.getSelection();
+      if (!sel.rangeCount) {
+        cursorCounter.classList.add("hidden");
+        return;
+      }
+
+      const range = sel.getRangeAt(0).cloneRange();
+      range.collapse(true);
+
+      let rect;
+      try {
+        rect = range.getBoundingClientRect();
+      } catch (e) {
+        cursorCounter.classList.add("hidden");
+        return;
+      }
+
+      if (!rect || (rect.width === 0 && rect.height === 0)) {
+        cursorCounter.classList.add("hidden");
+        return;
+      }
+
+      const editorRect = editor.getBoundingClientRect();
+
+      const x = rect.left - editorRect.left + editor.scrollLeft;
+      const y = rect.top - editorRect.top + editor.scrollTop + rect.height + 1;
+
+      cursorCounter.style.left = `${Math.max(0, x)}px`;
+      cursorCounter.style.top = `${y}px`;
+      cursorCounter.textContent = remaining < 0 ? remaining : remaining;
+      cursorCounter.style.backgroundColor = remaining < 0 ? "rgba(244, 33, 46, 0.85)" : "rgba(0, 0, 0, 0.75)";
+      cursorCounter.classList.remove("hidden");
+    }
 
     // combined audience + reply popup (single icon trigger)
     const stroke = (d) =>
@@ -410,14 +446,37 @@
 
     editor.addEventListener("focus", reveal);
 
+    editor.addEventListener("blur", () => {
+      if (cursorCounter) cursorCounter.classList.add("hidden");
+    });
+
     const autoGrow = () => {
       editor.style.height = "auto";
       editor.style.height = editor.scrollHeight + "px";
     };
 
     editor.addEventListener("input", () => {
+      // Hard limit enforcement for free users
+      if (!isPremium) {
+        let currentLen = [...editor.innerText].length;
+        if (currentLen > LIMIT) {
+          // Truncate to 280 characters (simple but effective for prototype)
+          const truncated = [...editor.innerText].slice(0, LIMIT).join("");
+          editor.innerText = truncated;
+
+          // Move caret to end
+          const range = document.createRange();
+          range.selectNodeContents(editor);
+          range.collapse(false);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+      }
+
       autoGrow();
-      updateCount();               // fast path: always update button/ring first
+      updateCount();
+      updateCursorCounter();
     });
 
     // Highlighting (DOM mutation) runs after the browser has settled the input
@@ -430,12 +489,14 @@
           highlightMentions(editor, pos);
         }
         updateCount();
+        updateCursorCounter();
       });
     });
 
     // Extra safety for some browsers / IME
     editor.addEventListener("keyup", () => {
       updateCount();
+      updateCursorCounter();
     });
 
     editor.addEventListener("paste", () => {
@@ -444,17 +505,24 @@
         highlightMentions(editor);
         autoGrow();
         updateCount();
+        updateCursorCounter();
       }, 0);
     });
 
     editor.addEventListener("click", (e) => {
       if (e.target.classList.contains("mention")) {
-        // Make it clickable - select the mention text
         const range = document.createRange();
         range.selectNodeContents(e.target);
         const sel = window.getSelection();
         sel.removeAllRanges();
         sel.addRange(range);
+      }
+      updateCursorCounter();
+    });
+
+    document.addEventListener("selectionchange", () => {
+      if (document.activeElement === editor) {
+        updateCursorCounter();
       }
     });
 
@@ -469,6 +537,7 @@
       modeBtn.textContent = isPremium ? "Premium" : "Free";
       modeBtn.classList.toggle("text-x-accent", isPremium);
       updateCount();
+      updateCursorCounter();
     }
 
     resetBtn.addEventListener("click", () => {
@@ -482,6 +551,7 @@
       renderAudienceOptions();
       renderReplyOptions();
       closePopup();
+      if (cursorCounter) cursorCounter.classList.add("hidden");
     });
 
     modeBtn.addEventListener("click", () => {
@@ -494,6 +564,7 @@
 
     // Initial state sync (button disabled, etc.)
     updateCount();
+    updateCursorCounter();
   </script>
 </body>
 </html>
