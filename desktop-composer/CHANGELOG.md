@@ -61,6 +61,11 @@
   mx-1 on line + -ml-1 on wrapper
   Globe not too far over
 
+0.10.39
+
+  Remove vertical line separator
+  Clean gap-2 between ring and globe
+
 0.3.0
 
   Hide icon row until focus in r1
