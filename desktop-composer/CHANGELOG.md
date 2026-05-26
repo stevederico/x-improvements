@@ -35,6 +35,11 @@
   Replace broken hammer with "debug" text
   Cleaner debug label in corner
 
+0.10.0
+
+  Fix dimmed location pin icon
+  Match visual style of other toolbar icons
+
 0.1.0
 
   Add .gitignore
