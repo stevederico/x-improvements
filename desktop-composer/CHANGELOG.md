@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.48
+
+  Match audience globe to other icon colors
+  Replace Grok icon with provided graphic
+
 0.10.29
 
   Add icon hover states
