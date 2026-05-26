@@ -1,5 +1,9 @@
 - Review remaining compliance gaps
 
+0.10.54
+
+  Change plus tooltip to Thread
+
 0.10.53
 
   Brutalist counter: raw number
