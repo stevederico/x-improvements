@@ -55,6 +55,12 @@
   mx-1.5 on the | 
   Symmetric between counter and globe
 
+0.10.38
+
+  Pull globe closer to |
+  mx-1 on line + -ml-1 on wrapper
+  Globe not too far over
+
 0.3.0
 
   Hide icon row until focus in r1
