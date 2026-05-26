@@ -100,6 +100,11 @@
   Swap plus icon button and audience button
   Plus now before countWrap; audience inside count area
 
+0.10.13
+
+  Remove border circle from plus and audience icons
+  Match style of other toolbar icons (no border)
+
 0.1.0
 
   Add .gitignore
