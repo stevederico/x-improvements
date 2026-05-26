@@ -118,15 +118,15 @@
           <div class="flex items-center">
             <!-- char countdown + add post -->
             <div id="countWrap" class="hidden items-center gap-3">
-              <div class="relative w-7 h-7 flex-shrink-0">
-                <svg id="countRing" width="28" height="28" viewBox="0 0 28 28" class="absolute inset-0">
-                  <circle cx="14" cy="14" r="11.5" fill="none" stroke="#2F3336" stroke-width="2" />
+              <div class="relative w-8 h-8 flex-shrink-0">
+                <svg id="countRing" width="32" height="32" viewBox="0 0 32 32" class="absolute inset-0">
+                  <circle cx="16" cy="16" r="13" fill="none" stroke="#2F3336" stroke-width="2" />
                   <circle
                     id="countProgress"
-                    cx="14" cy="14" r="11.5" fill="none"
+                    cx="16" cy="16" r="13" fill="none"
                     stroke="#7856FF" stroke-width="2" stroke-linecap="round"
-                    stroke-dasharray="72.257" stroke-dashoffset="72.257"
-                    style="transform: rotate(-90deg); transform-origin: 14px 14px;"
+                    stroke-dasharray="81.681" stroke-dashoffset="81.681"
+                    style="transform: rotate(-90deg); transform-origin: 16px 16px;"
                   />
                 </svg>
                 <span id="countText" 
@@ -136,7 +136,7 @@
               <div class="h-7 w-px bg-x-line"></div>
 
               <!-- audience button now inside count area (swapped) -->
-              <div class="relative">
+              <div class="relative ml-1">
                 <button
                   id="audienceIcon"
                   type="button"
@@ -203,7 +203,7 @@
     const countText = document.getElementById("countText");
 
     const LIMIT = 280;
-    const CIRC = 72.257; // 2πr, r=11.5
+    const CIRC = 81.681; // 2πr, r=13
 
     function getCaretPosition(element) {
       const selection = window.getSelection();

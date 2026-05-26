@@ -159,6 +159,11 @@
   Stop fighting native Enter behavior
   Only run mention highlighting replacement when @ is present in the text
 
+0.10.25
+
+  Larger character counter ring (32px) with more internal padding around the number
+  Reduced left margin on audience globe icon
+
 0.1.0
 
   Add .gitignore
