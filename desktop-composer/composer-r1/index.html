@@ -100,12 +100,13 @@
           class="h-10 w-10 shrink-0 rounded-full object-cover"
         />
 
-        <div class="flex-1">
+        <div class="flex-1 min-w-0">
           <!-- editor -->
           <div
             id="editor"
             contenteditable="true"
-            class="block w-full min-h-[28px] py-2 text-xl text-x-ink focus:outline-none whitespace-pre-wrap break-words"
+            spellcheck="false"
+            class="block w-full min-h-[28px] py-2 text-xl text-x-ink focus:outline-none whitespace-pre-wrap break-all"
             data-placeholder="What's happening?"
           ></div>
 

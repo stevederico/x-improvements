@@ -7,6 +7,12 @@
   Bold on hover
   Custom pill tooltips
 
+0.10.30
+
+  Fix text overflow outside card
+  Add min-w-0 to flex-1
+  break-all + no spellcheck
+
 0.3.0
 
   Hide icon row until focus in r1
