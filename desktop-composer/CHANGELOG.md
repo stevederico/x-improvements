@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.56
+
+  Lock counter to white
+  No red color change
+
 0.10.55
 
   Use provided grok png via css mask
