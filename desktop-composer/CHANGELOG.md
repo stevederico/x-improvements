@@ -66,6 +66,11 @@
   Remove vertical line separator
   Clean gap-2 between ring and globe
 
+0.10.40
+
+  Remove hated ring completely
+  Simple text counter, only shows when <= 40 remaining
+
 0.3.0
 
   Hide icon row until focus in r1
