@@ -25,6 +25,12 @@
   Ring always purple
   Number always dim gray
 
+0.10.33
+
+  Remove purple from counter too
+  Ring + number both dim gray
+  Completely neutral
+
 0.3.0
 
   Hide icon row until focus in r1
