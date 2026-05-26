@@ -1,17 +1,47 @@
+<div align="center">
+
 # x-compose-replica
 
-A pixel-faithful recreation of X's (Twitter's) compose box, built with plain JS and Tailwind in a single self-contained `index.html`.
+a self-contained html demo of the x compose box ui
 
-## Features
+</div>
 
-- Audience pill and "Everyone can reply" link that reveal on focus
-- **Who can reply?** popover (Everyone, Accounts you follow, network, mentions, verified, regions) with live label updates
-- Real X toolbar icons (photos, GIF, Grok image-gen, poll, emoji, schedule, location, content disclosure)
-- Auto-growing textarea
-- Character countdown ring (280 limit) — yellow under 20 left, red when over
-- (+) add-post button and active-state Post button
-- Reset button to restore initial state
+<br />
 
-## Usage
+## 🚀 Quick Start
 
-Open `index.html` in a browser. No build step.
+Open `index.html` in a browser. No build or install.
+
+<br />
+
+## ✨ Features
+
+- **Audience pill** and reply scope that appear on editor focus
+- **Who can reply popover** with 6 options and live label sync
+- **X toolbar** icons for photo, gif, grok, poll, emoji, schedule, location, disclosure
+- **Auto-growing textarea** and 280 char ring (yellow at 20, red over)
+- **Post / add / reset** controls with disabled states
+
+<br />
+
+## 🛠 Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Vanilla JS + DOM | all interactivity and state |
+| Tailwind via CDN + inline config | styling and custom x palette |
+| External fonts from twimg | Chirp font family |
+
+**⚠ Note:** This is a non-compliant demo. It uses prohibited Tailwind CDN and no React/Vite stack per dev-stack rules.
+
+<br />
+
+## 📄 License
+
+MIT License
+
+<br />
+
+<div align="center">
+Built as a quick visual replica.
+</div>

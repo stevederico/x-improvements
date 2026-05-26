@@ -51,6 +51,8 @@
       <img
         src="https://pbs.twimg.com/profile_images/545651207445184512/A6b1EStp_x96.jpeg"
         alt="Steve Derico"
+        width="40"
+        height="40"
         class="h-10 w-10 shrink-0 rounded-full object-cover"
       />
 
@@ -196,7 +198,7 @@
     const updateCount = () => {
       const len = [...editor.value].length;
       if (len === 0) {
-        countWrap.classList.replace("flex", "hidden");
+        countWrap.classList.remove("flex");
         countWrap.classList.add("hidden");
         postBtn.disabled = true;
         return;
@@ -307,7 +309,6 @@
 
     postBtn.addEventListener("click", () => {
       if (postBtn.disabled) return;
-      console.log("Posted:", editor.value);
       editor.value = "";
       autoGrow();
       updateCount();
