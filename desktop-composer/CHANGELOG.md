@@ -49,6 +49,12 @@
   gap-1.5 + -ml-1
   Not too tight
 
+0.10.37
+
+  Equal spacing around vertical line
+  mx-1.5 on the | 
+  Symmetric between counter and globe
+
 0.3.0
 
   Hide icon row until focus in r1
