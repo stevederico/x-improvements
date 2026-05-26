@@ -111,8 +111,8 @@
               data-placeholder="What's happening?"
             ></div>
             <span id="cursorCounter"
-                  class="pointer-events-none absolute z-50 hidden select-none whitespace-nowrap rounded bg-[#1d1f23] px-2 py-0.5 text-[12px] font-bold leading-none text-white border border-[#71767b]"
-                  style="font-size: 12px; line-height: 1; min-width: 20px; text-align: center;"></span>
+                  class="pointer-events-none absolute z-50 hidden select-none whitespace-nowrap rounded bg-[#1d1f23] text-[10px] font-bold leading-none text-white"
+                  style="font-size: 10px; line-height: 1; min-width: 18px; text-align: center;"></span>
           </div>
 
           <!-- divider -->
@@ -335,18 +335,18 @@
         return;
       }
 
-      // Free mode only: subtle small counter when <=10 remaining
-      cursorCounter.style.right = "8px";
-      cursorCounter.style.bottom = "6px";
+      // Free only, <=10: tiny, no border, sitting right on top of the divider line
+      cursorCounter.style.right = "2px";
+      cursorCounter.style.bottom = "-10px";
       cursorCounter.style.left = "auto";
       cursorCounter.style.top = "auto";
       cursorCounter.textContent = remaining;
       cursorCounter.style.backgroundColor = remaining <= 5 ? "#b91c1c" : "#1f2937";
-      cursorCounter.style.border = "1px solid #4b5563";
+      cursorCounter.style.border = "none";
       cursorCounter.style.color = "#fff";
-      cursorCounter.style.fontSize = "11px";
-      cursorCounter.style.padding = "1px 5px";
-      cursorCounter.style.borderRadius = "4px";
+      cursorCounter.style.fontSize = "10px";
+      cursorCounter.style.padding = "0 3px";
+      cursorCounter.style.borderRadius = "3px";
       cursorCounter.style.boxShadow = "none";
       cursorCounter.style.zIndex = "50";
       cursorCounter.classList.remove("hidden");

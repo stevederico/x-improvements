@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.52
+
+  Smaller 10px counter
+  No border, on top of divider line
+
 0.10.51
 
   Shrink counter to 11px
