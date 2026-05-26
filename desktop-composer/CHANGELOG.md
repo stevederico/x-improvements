@@ -90,6 +90,11 @@
   Improve character counter ring to better match real X
   Move rotation to progress circle only for accurate gap position
 
+0.10.11
+
+  Move audience button from left icons to right side (near + / count area)
+  Swapped position with the add post button area
+
 0.1.0
 
   Add .gitignore
