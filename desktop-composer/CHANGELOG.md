@@ -25,6 +25,11 @@
   Change reset to hammer icon
   Position in lower left corner
 
+0.8.0
+
+  Make reset hammer fixed to page lower left
+  True debug tool positioning
+
 0.1.0
 
   Add .gitignore
