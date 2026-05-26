@@ -40,6 +40,11 @@
   Fix dimmed location pin icon
   Match visual style of other toolbar icons
 
+0.10.1
+
+  Undim location pin in baseline and r2
+  Visual consistency across all three versions
+
 0.1.0
 
   Add .gitignore
