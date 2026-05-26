@@ -6,3 +6,8 @@
   Fix avatar cls
   Remove post console
   Update readme for standards
+
+0.1.1
+
+  Remove stack note
+  Clean readme footer

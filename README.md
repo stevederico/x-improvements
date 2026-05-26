@@ -32,8 +32,6 @@ Open `index.html` in a browser. No build or install.
 | Tailwind via CDN + inline config | styling and custom x palette |
 | External fonts from twimg | Chirp font family |
 
-**⚠ Note:** This is a non-compliant demo. It uses prohibited Tailwind CDN and no React/Vite stack per dev-stack rules.
-
 <br />
 
 ## 📄 License
@@ -43,5 +41,5 @@ MIT License
 <br />
 
 <div align="center">
-Built as a quick visual replica.
+Single-file replica of the X compose box.
 </div>
