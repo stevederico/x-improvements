@@ -50,6 +50,11 @@
   Add assets to composer-r2
   Complete standalone frozen reference
 
+0.10.3
+
+  Audience popup opens below icon like dropdown
+  top-full instead of bottom-full
+
 0.1.0
 
   Add .gitignore
