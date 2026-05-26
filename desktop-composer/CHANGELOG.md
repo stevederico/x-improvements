@@ -154,6 +154,11 @@
   Fix cursor jumping to front when pressing Enter in editor
   Save/restore caret position around highlightMentions innerHTML replacement
 
+0.10.24
+
+  Stop fighting native Enter behavior
+  Only run mention highlighting replacement when @ is present in the text
+
 0.1.0
 
   Add .gitignore

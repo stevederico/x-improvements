@@ -400,7 +400,11 @@
     editor.addEventListener("input", () => {
       const pos = getCaretPosition(editor);   // capture position *now*
       requestAnimationFrame(() => {
-        highlightMentions(editor, pos);
+        // Only do the expensive innerHTML replacement if there are @mentions to process.
+        // This lets plain Enter/Return create normal new lines without fighting the DOM.
+        if (editor.innerText.includes('@')) {
+          highlightMentions(editor, pos);
+        }
         updateCount();
       });
     });
