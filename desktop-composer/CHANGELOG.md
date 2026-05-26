@@ -15,6 +15,11 @@
   Single icon trigger for combined audience + reply popup
   Select either in one menu
 
+0.6.0
+
+  Move world icon into toolbar row
+  Same dim color as other icons
+
 0.1.0
 
   Add .gitignore
