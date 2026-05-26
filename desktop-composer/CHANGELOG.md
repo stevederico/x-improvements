@@ -10,6 +10,11 @@
   Move audience and reply controls to header bar outside card
   Remove them from content area in r1
 
+0.5.0
+
+  Single icon trigger for combined audience + reply popup
+  Select either in one menu
+
 0.1.0
 
   Add .gitignore

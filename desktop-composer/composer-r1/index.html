@@ -47,38 +47,33 @@
 </head>
 <body class="min-h-screen bg-black flex flex-col items-center p-8 font-sans text-x-ink">
   <div class="w-full max-w-[620px]">
-    <!-- meta controls (audience + reply scope) live outside the card -->
-    <div id="meta" class="hidden mb-2 flex items-center justify-between text-sm">
-      <button
-        id="audienceBtn"
-        type="button"
-        class="group inline-flex items-center gap-1 rounded-full border border-x-accent/60 px-3 py-1 text-sm font-bold text-x-accent transition hover:bg-x-accent/10"
-      >
-        Everyone
-        <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current">
-          <path d="M3.543 8.96l1.414-1.42L12 14.59l7.043-7.05 1.414 1.42L12 17.41 3.543 8.96z" />
-        </svg>
-      </button>
-
+    <!-- meta: single audience icon + combined popup (audience + reply) -->
+    <div id="meta" class="hidden mb-2 flex items-center justify-end text-sm">
       <div class="relative">
         <button
-          id="replyBtn"
+          id="audienceIcon"
           type="button"
-          class="inline-flex items-center gap-2 text-sm font-bold text-x-accent hover:underline"
+          aria-label="Audience and reply settings"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-full text-x-accent transition hover:bg-x-accent/10"
         >
-          <svg viewBox="0 0 24 24" class="h-[1.05rem] w-[1.05rem] fill-current">
-            <path d="M12 1.75C6.34 1.75 1.75 6.34 1.75 12S6.34 22.25 12 22.25 22.25 17.66 22.25 12 17.66 1.75 12 1.75zm-.25 10.48L10.5 17.5l-2-1.5v-3.5L7.5 9 5.03 7.59c1.42-2.24 3.89-3.75 6.72-3.84L11 6l-2 .5L8.5 9l5 1.5-1.75 1.73zM17 14v-3l-1.5-3 2.88-1.23c1.17 1.42 1.87 3.24 1.87 5.23 0 1.3-.3 2.52-.83 3.61L17 14z" />
+          <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
           </svg>
-          <span id="replyLabel">Everyone can reply</span>
         </button>
 
-        <!-- who can reply menu -->
         <div
-          id="replyMenu"
-          class="absolute right-0 top-8 z-50 hidden w-[360px] overflow-hidden rounded-2xl bg-black py-3 shadow-[0_0_15px_rgba(255,255,255,0.15)]"
+          id="combinedPopup"
+          class="absolute right-0 top-10 z-50 hidden w-[340px] overflow-hidden rounded-2xl bg-black py-2 shadow-[0_0_15px_rgba(255,255,255,0.15)] text-sm"
         >
-          <h2 class="px-4 pb-2 text-xl font-extrabold text-x-ink">Who can reply?</h2>
-          <div id="replyOptions"></div>
+          <div class="px-4 pt-1 pb-2">
+            <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Audience</div>
+            <div id="audienceOptions" class="space-y-0.5"></div>
+          </div>
+          <div class="h-px bg-x-line mx-4 my-1"></div>
+          <div class="px-4 pt-1 pb-2">
+            <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Who can reply</div>
+            <div id="replyOptions" class="space-y-0.5"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -184,15 +179,14 @@
   <script>
     const editor = document.getElementById("editor");
     const postBtn = document.getElementById("postBtn");
-    const audienceBtn = document.getElementById("audienceBtn");
-    const replyBtn = document.getElementById("replyBtn");
     const resetBtn = document.getElementById("resetBtn");
     const divider = document.getElementById("divider");
     const toolbar = document.getElementById("toolbar");
     const meta = document.getElementById("meta");
-    const replyMenu = document.getElementById("replyMenu");
+    const audienceIcon = document.getElementById("audienceIcon");
+    const combinedPopup = document.getElementById("combinedPopup");
+    const audienceOptions = document.getElementById("audienceOptions");
     const replyOptions = document.getElementById("replyOptions");
-    const replyLabel = document.getElementById("replyLabel");
     const countWrap = document.getElementById("countWrap");
     const countProgress = document.getElementById("countProgress");
     const countText = document.getElementById("countText");
@@ -227,64 +221,85 @@
       postBtn.disabled = remaining < 0;
     };
 
-    // who-can-reply menu
+    // combined audience + reply popup (single icon trigger)
     const stroke = (d) =>
-      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">${d}</svg>`;
+      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">${d}</svg>`;
+
+    const audienceChoices = [
+      { value: "everyone", label: "Everyone", icon: `<circle cx="12" cy="12" r="10"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/>` },
+      { value: "circle", label: "Twitter Circle", icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>` },
+      { value: "followers", label: "Followers only", icon: `<path d="M12 1.75C6.34 1.75 1.75 6.34 1.75 12S6.34 22.25 12 22.25 22.25 17.66 22.25 12 17.66 1.75 12 1.75zm0 5.25a3.75 3.75 0 1 1 0 7.5 3.75 3.75 0 0 1 0-7.5z"/>` },
+    ];
 
     const replyChoices = [
       { value: "everyone", label: "Everyone", icon: `<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/>` },
       { value: "follow", label: "Accounts you follow", icon: `<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M16 11l2 2 4-4"/>` },
-      { value: "network", label: "Accounts you follow and who they follow", icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>` },
       { value: "mention", label: "Only accounts you mention", icon: `<circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/>` },
       { value: "verified", label: "Verified accounts", icon: `<path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/>` },
-      { value: "regions", label: "Regions", icon: `<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>`, nav: true },
     ];
 
-    let selected = "everyone";
+    let selectedAudience = "everyone";
+    let selectedReply = "everyone";
 
     const radio = (on) =>
       on
-        ? `<span class="flex h-6 w-6 items-center justify-center rounded-full bg-x-accent">${stroke(`<path d="m5 12 4 4 10-10"/>`).replace('h-6 w-6', 'h-4 w-4 text-white')}</span>`
-        : `<span class="h-6 w-6 rounded-full border-2 border-x-dim"></span>`;
+        ? `<span class="flex h-5 w-5 items-center justify-center rounded-full bg-x-accent">${stroke(`<path d="m5 12 4 4 10-10"/>`).replace('h-5 w-5', 'h-3.5 w-3.5 text-white')}</span>`
+        : `<span class="h-5 w-5 rounded-full border-2 border-x-dim"></span>`;
 
-    const chevron = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-x-dim"><path d="m9 18 6-6-6-6"/></svg>`;
+    const renderAudienceOptions = () => {
+      audienceOptions.innerHTML = audienceChoices
+        .map(
+          (c) => `
+        <button type="button" data-section="audience" data-value="${c.value}" class="flex w-full items-center gap-3 px-3 py-2 text-left rounded-xl transition hover:bg-white/5">
+          <span class="shrink-0 text-x-ink">${stroke(c.icon)}</span>
+          <span class="flex-1 text-[13px] font-bold text-x-ink">${c.label}</span>
+          ${radio(c.value === selectedAudience)}
+        </button>`
+        )
+        .join("");
+    };
 
     const renderReplyOptions = () => {
       replyOptions.innerHTML = replyChoices
         .map(
           (c) => `
-        <button type="button" data-value="${c.value}" class="flex w-full items-center gap-4 px-4 py-3 text-left transition hover:bg-white/5">
+        <button type="button" data-section="reply" data-value="${c.value}" class="flex w-full items-center gap-3 px-3 py-2 text-left rounded-xl transition hover:bg-white/5">
           <span class="shrink-0 text-x-ink">${stroke(c.icon)}</span>
-          <span class="flex-1 text-[15px] font-bold leading-tight text-x-ink">${c.label}</span>
-          ${c.nav ? chevron : radio(c.value === selected)}
+          <span class="flex-1 text-[13px] font-bold text-x-ink">${c.label}</span>
+          ${radio(c.value === selectedReply)}
         </button>`
         )
         .join("");
     };
+
+    renderAudienceOptions();
     renderReplyOptions();
 
-    const closeReplyMenu = () => replyMenu.classList.add("hidden");
+    const closePopup = () => combinedPopup.classList.add("hidden");
 
-    replyBtn.addEventListener("click", (e) => {
+    audienceIcon.addEventListener("click", (e) => {
       e.stopPropagation();
-      replyMenu.classList.toggle("hidden");
+      combinedPopup.classList.toggle("hidden");
     });
 
-    replyOptions.addEventListener("click", (e) => {
+    combinedPopup.addEventListener("click", (e) => {
       const btn = e.target.closest("button[data-value]");
       if (!btn) return;
+      const section = btn.dataset.section;
       const value = btn.dataset.value;
-      const choice = replyChoices.find((c) => c.value === value);
-      if (choice.nav) return; // Regions submenu — no-op
-      selected = value;
-      replyLabel.textContent = `${choice.label} can reply`;
-      renderReplyOptions();
-      closeReplyMenu();
+      if (section === "audience") {
+        selectedAudience = value;
+        renderAudienceOptions();
+      } else {
+        selectedReply = value;
+        renderReplyOptions();
+      }
+      closePopup();
     });
 
     document.addEventListener("click", (e) => {
-      if (!replyMenu.classList.contains("hidden") && !replyMenu.contains(e.target) && e.target !== replyBtn) {
-        closeReplyMenu();
+      if (!combinedPopup.classList.contains("hidden") && !combinedPopup.contains(e.target) && e.target !== audienceIcon) {
+        closePopup();
       }
     });
 
@@ -325,10 +340,11 @@
       autoGrow();
       updateCount();
       hide();
-      selected = "everyone";
-      replyLabel.textContent = "Everyone can reply";
+      selectedAudience = "everyone";
+      selectedReply = "everyone";
+      renderAudienceOptions();
       renderReplyOptions();
-      closeReplyMenu();
+      closePopup();
     });
   </script>
 </body>
