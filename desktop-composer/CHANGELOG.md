@@ -105,6 +105,10 @@
   Made counter extremely prominent (16px font, 3px white border, bright red/blue, shadow, z-9999)
   So it is impossible to miss at bottom-right inside editor in Free mode
 
+0.10.47
+
+  Fix Enter/Return not creating new line (highlightMentions + truncation were fighting native behavior on Enter)
+
 0.3.0
 
   Hide icon row until focus in r1
