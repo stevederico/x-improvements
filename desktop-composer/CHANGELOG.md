@@ -149,6 +149,11 @@
 
   Remove .overflow red dotted underline for over-limit text
 
+0.10.23
+
+  Fix cursor jumping to front when pressing Enter in editor
+  Save/restore caret position around highlightMentions innerHTML replacement
+
 0.1.0
 
   Add .gitignore

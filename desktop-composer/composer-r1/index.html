@@ -205,15 +205,60 @@
     const LIMIT = 280;
     const CIRC = 72.257; // 2πr, r=11.5
 
-    function highlightMentions(el) {
+    function getCaretPosition(element) {
+      const selection = window.getSelection();
+      if (!selection.rangeCount) return 0;
+      const range = selection.getRangeAt(0);
+      const preCaretRange = range.cloneRange();
+      preCaretRange.selectNodeContents(element);
+      preCaretRange.setEnd(range.endContainer, range.endOffset);
+      return preCaretRange.toString().length;
+    }
+
+    function setCaretPosition(element, position) {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      let charIndex = 0;
+      const nodeStack = [element];
+      let node;
+      let found = false;
+
+      while (nodeStack.length > 0 && !found) {
+        node = nodeStack.pop();
+        if (node.nodeType === Node.TEXT_NODE) {
+          const nextCharIndex = charIndex + node.length;
+          if (position >= charIndex && position <= nextCharIndex) {
+            range.setStart(node, position - charIndex);
+            range.collapse(true);
+            found = true;
+            break;
+          }
+          charIndex = nextCharIndex;
+        } else {
+          let i = node.childNodes.length;
+          while (i--) nodeStack.push(node.childNodes[i]);
+        }
+      }
+
+      if (found) {
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+
+    function highlightMentions(el, savedPos = null) {
+      const pos = savedPos !== null ? savedPos : getCaretPosition(el);
+
       let text = el.innerText || '';
       // Escape for safety
       text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       // Explicitly turn newlines into <br> to avoid weird extra line breaks on paste
       text = text.replace(/\n/g, '<br>');
       const highlighted = text.replace(/@(\w+)/g, '<span class="text-x-accent hover:underline cursor-pointer mention" data-handle="$1">@$1</span>');
+
       if (el.innerHTML !== highlighted) {
         el.innerHTML = highlighted;
+        setCaretPosition(el, pos);
       }
     }
 
@@ -353,9 +398,10 @@
 
     // Highlighting (DOM mutation) runs after the browser has settled the input
     editor.addEventListener("input", () => {
+      const pos = getCaretPosition(editor);   // capture position *now*
       requestAnimationFrame(() => {
-        highlightMentions(editor);
-        updateCount();             // safety re-check after mutation
+        highlightMentions(editor, pos);
+        updateCount();
       });
     });
 
