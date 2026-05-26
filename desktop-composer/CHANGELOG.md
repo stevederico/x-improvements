@@ -145,6 +145,10 @@
   Make Post button enabling reliable with contenteditable
   Decouple updateCount (fast path) from highlightMentions (rAF + keyup backup)
 
+0.10.22
+
+  Remove .overflow red dotted underline for over-limit text
+
 0.1.0
 
   Add .gitignore
