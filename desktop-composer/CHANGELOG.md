@@ -130,6 +130,11 @@
   Make countdown circle larger (24px)
   r=10, updated dash values and text size
 
+0.10.19
+
+  Make countdown circle even larger (28px)
+  r=11.5, bigger text, better visual weight
+
 0.1.0
 
   Add .gitignore

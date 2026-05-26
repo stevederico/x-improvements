@@ -118,19 +118,19 @@
           <div class="flex items-center">
             <!-- char countdown + add post -->
             <div id="countWrap" class="hidden items-center gap-3">
-              <div class="relative w-6 h-6 flex-shrink-0">
-                <svg id="countRing" width="24" height="24" viewBox="0 0 24 24" class="absolute inset-0">
-                  <circle cx="12" cy="12" r="10" fill="none" stroke="#2F3336" stroke-width="2" />
+              <div class="relative w-7 h-7 flex-shrink-0">
+                <svg id="countRing" width="28" height="28" viewBox="0 0 28 28" class="absolute inset-0">
+                  <circle cx="14" cy="14" r="11.5" fill="none" stroke="#2F3336" stroke-width="2" />
                   <circle
                     id="countProgress"
-                    cx="12" cy="12" r="10" fill="none"
+                    cx="14" cy="14" r="11.5" fill="none"
                     stroke="#7856FF" stroke-width="2" stroke-linecap="round"
-                    stroke-dasharray="62.832" stroke-dashoffset="62.832"
-                    style="transform: rotate(-90deg); transform-origin: 12px 12px;"
+                    stroke-dasharray="72.257" stroke-dashoffset="72.257"
+                    style="transform: rotate(-90deg); transform-origin: 14px 14px;"
                   />
                 </svg>
                 <span id="countText" 
-                      class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-x-dim leading-none">
+                      class="absolute inset-0 flex items-center justify-center text-[11px] font-bold text-x-dim leading-none">
                 </span>
               </div>
               <div class="h-7 w-px bg-x-line"></div>
@@ -203,7 +203,7 @@
     const countText = document.getElementById("countText");
 
     const LIMIT = 280;
-    const CIRC = 62.832; // 2πr, r=10
+    const CIRC = 72.257; // 2πr, r=11.5
 
     function highlightMentions(el) {
       let text = el.innerText || '';
