@@ -140,6 +140,11 @@
   Fix Post button not enabling on first characters
   Call updateCount() before highlightMentions + initial sync
 
+0.10.21
+
+  Make Post button enabling reliable with contenteditable
+  Decouple updateCount (fast path) from highlightMentions (rAF + keyup backup)
+
 0.1.0
 
   Add .gitignore

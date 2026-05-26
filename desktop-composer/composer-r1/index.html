@@ -27,6 +27,13 @@
       color: #71767b;
       pointer-events: none;
     }
+
+    .overflow {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: #f4212e;
+      text-underline-offset: 1px;
+    }
   </style>
   <script src="assets/tailwind.js"></script>
   <script>
@@ -206,14 +213,42 @@
     const CIRC = 72.257; // 2πr, r=11.5
 
     function highlightMentions(el) {
-      let text = el.innerText || '';
-      // Escape for safety
-      text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      // Explicitly turn newlines into <br> to avoid weird extra line breaks on paste
-      text = text.replace(/\n/g, '<br>');
-      const highlighted = text.replace(/@(\w+)/g, '<span class="text-x-accent hover:underline cursor-pointer mention" data-handle="$1">@$1</span>');
-      if (el.innerHTML !== highlighted) {
-        el.innerHTML = highlighted;
+      let plain = el.innerText || '';
+      const isOver = plain.length > LIMIT;
+
+      let html;
+
+      if (!isOver) {
+        // Normal path: escape + newlines + mentions
+        let text = plain
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/\n/g, '<br>');
+        html = text.replace(/@(\w+)/g, '<span class="text-x-accent hover:underline cursor-pointer mention" data-handle="$1">@$1</span>');
+      } else {
+        // Over limit: highlight mentions in first 280, mark excess with red dotted underline
+        const visibleText = plain.slice(0, LIMIT);
+        const excessText = plain.slice(LIMIT);
+
+        let visible = visibleText
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/\n/g, '<br>');
+        visible = visible.replace(/@(\w+)/g, '<span class="text-x-accent hover:underline cursor-pointer mention" data-handle="$1">@$1</span>');
+
+        let excess = excessText
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/\n/g, '<br>');
+
+        html = visible + `<span class="overflow">${excess}</span>`;
+      }
+
+      if (el.innerHTML !== html) {
+        el.innerHTML = html;
       }
     }
 
@@ -348,8 +383,20 @@
 
     editor.addEventListener("input", () => {
       autoGrow();
-      updateCount();               // check length & button state *before* DOM mutation
-      highlightMentions(editor);   // then apply @mention styling
+      updateCount();               // fast path: always update button/ring first
+    });
+
+    // Highlighting (DOM mutation) runs after the browser has settled the input
+    editor.addEventListener("input", () => {
+      requestAnimationFrame(() => {
+        highlightMentions(editor);
+        updateCount();             // safety re-check after mutation
+      });
+    });
+
+    // Extra safety for some browsers / IME
+    editor.addEventListener("keyup", () => {
+      updateCount();
     });
 
     editor.addEventListener("paste", () => {
