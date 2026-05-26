@@ -65,6 +65,11 @@
   Add "Accounts you follow and who they follow" to who can reply
   Inserted above "Only accounts you mention"
 
+0.10.6
+
+  Make @mention purple in "Only accounts you mention" option
+  Accent color for @handles
+
 0.1.0
 
   Add .gitignore
