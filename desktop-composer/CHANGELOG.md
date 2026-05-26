@@ -37,6 +37,12 @@
   Reduce gap + remove ml-1
   Globe closer to divider
 
+0.10.35
+
+  Tighter globe spacing
+  gap-1 + -ml-2 on wrapper
+  Much closer to |
+
 0.3.0
 
   Hide icon row until focus in r1
