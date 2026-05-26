@@ -221,6 +221,7 @@
 
     const LIMIT = 280;
     let isPremium = false; // false = Free (hard 280), true = Premium (long form)
+    let lastInputWasEnter = false;
 
     function getCaretPosition(element) {
       const selection = window.getSelection();
@@ -428,21 +429,26 @@
       if (cursorCounter) cursorCounter.classList.add("hidden");
     });
 
+    // Prevent highlight replacement from fighting Enter/Return
+    editor.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        lastInputWasEnter = true;
+      }
+    });
+
     const autoGrow = () => {
       editor.style.height = "auto";
       editor.style.height = editor.scrollHeight + "px";
     };
 
     editor.addEventListener("input", () => {
-      // Hard limit enforcement for free users
-      if (!isPremium) {
+      // Hard limit enforcement for free users — skip right after Enter so newline can settle
+      if (!isPremium && !lastInputWasEnter) {
         let currentLen = [...editor.innerText].length;
         if (currentLen > LIMIT) {
-          // Truncate to 280 characters (simple but effective for prototype)
           const truncated = [...editor.innerText].slice(0, LIMIT).join("");
           editor.innerText = truncated;
 
-          // Move caret to end
           const range = document.createRange();
           range.selectNodeContents(editor);
           range.collapse(false);
@@ -461,8 +467,14 @@
     editor.addEventListener("input", () => {
       const pos = getCaretPosition(editor);   // capture position *now*
       requestAnimationFrame(() => {
+        if (lastInputWasEnter) {
+          lastInputWasEnter = false;
+          updateCount();
+          updateCursorCounter();
+          return;
+        }
+
         // Only do the expensive innerHTML replacement if there are @mentions to process.
-        // This lets plain Enter/Return create normal new lines without fighting the DOM.
         if (editor.innerText.includes('@')) {
           highlightMentions(editor, pos);
         }
