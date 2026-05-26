@@ -110,8 +110,8 @@
             data-placeholder="What's happening?"
           >
             <span id="cursorCounter"
-                  class="pointer-events-none absolute z-50 hidden select-none whitespace-nowrap rounded bg-black/80 px-1.5 py-px text-[10px] font-bold leading-none text-white shadow"
-                  style="font-size: 10px; line-height: 1;"></span>
+                  class="pointer-events-none absolute z-50 hidden select-none whitespace-nowrap rounded bg-[#1d1f23] px-2 py-0.5 text-[12px] font-bold leading-none text-white border border-[#71767b]"
+                  style="font-size: 12px; line-height: 1; min-width: 20px; text-align: center;"></span>
           </div>
 
           <!-- divider -->
@@ -202,7 +202,7 @@
     <div id="debugBar" class="fixed bottom-4 left-4 z-50 flex items-center gap-1 rounded-full bg-black/80 px-2 py-0.5 text-[10px] font-bold text-x-dim">
       <button id="resetBtn" class="hover:text-x-ink transition">reset</button>
       <span class="text-x-dim/50">|</span>
-      <button id="modeBtn" class="hover:text-x-ink transition">Free</button>
+      <button id="modeBtn" class="hover:text-x-ink transition font-bold">Free</button>
     </div>
   </div>
 
@@ -313,7 +313,8 @@
       const len = [...text].length;
       const remaining = LIMIT - len;
 
-      if (len === 0 || remaining > 10) {
+      // TEMP: show in Free mode for visibility testing (even if >10)
+      if (len === 0) {
         cursorCounter.classList.add("hidden");
         return;
       }
@@ -324,7 +325,9 @@
       cursorCounter.style.left = "auto";
       cursorCounter.style.top = "auto";
       cursorCounter.textContent = remaining;
-      cursorCounter.style.backgroundColor = remaining < 0 ? "rgba(244, 33, 46, 0.85)" : "rgba(0, 0, 0, 0.75)";
+      cursorCounter.style.backgroundColor = remaining < 0 ? "#f4212e" : "#1d9bf0";
+      cursorCounter.style.borderColor = "#fff";
+      cursorCounter.style.color = "#fff";
       cursorCounter.classList.remove("hidden");
     }
 

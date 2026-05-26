@@ -89,6 +89,12 @@
   Cursor counter now reliably pinned bottom-right inside editor (Free only, <=10 remaining)
   Dynamic caret chasing removed (too flaky)
 
+0.10.44
+
+  Make editor counter much more visible for testing (bright blue + border)
+  Temporarily show in Free mode whenever there's text (for visibility)
+  Will tighten back to <=10 remaining after confirmation
+
 0.3.0
 
   Hide icon row until focus in r1
