@@ -110,6 +110,11 @@
   Move plus icon to left icon menu area
   Make plus and audience icons h-5 w-5 and match other toolbar icons
 
+0.10.15
+
+  Make plus icon color match other toolbar icons
+  Remove explicit text-x-accent
+
 0.1.0
 
   Add .gitignore
