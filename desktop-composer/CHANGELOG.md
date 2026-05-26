@@ -84,6 +84,11 @@
   Cursor-adjacent counter (next to caret) only for free when <=10 remaining
   Removed old toolbar counter
 
+0.10.43
+
+  Cursor counter now reliably pinned bottom-right inside editor (Free only, <=10 remaining)
+  Dynamic caret chasing removed (too flaky)
+
 0.3.0
 
   Hide icon row until focus in r1

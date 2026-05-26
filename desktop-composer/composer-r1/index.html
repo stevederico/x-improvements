@@ -157,31 +157,30 @@
             </button>
           </div>
 
-          <div class="flex items-center">
+          <div class="ml-auto flex items-center gap-3">
             <div class="relative">
               <button
                 id="audienceIcon"
-                  type="button"
-                  aria-label="Audience and reply settings"
-                  data-tooltip="Audience"
-                  class="icon-btn relative rounded-full p-2 transition text-x-accent"
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                </button>
+                type="button"
+                aria-label="Audience and reply settings"
+                data-tooltip="Audience"
+                class="icon-btn relative rounded-full p-2 transition text-x-accent"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              </button>
 
-                <div
-                  id="combinedPopup"
-                  class="absolute left-0 top-full mt-2 z-50 hidden w-[340px] overflow-hidden rounded-2xl bg-black py-2 shadow-[0_0_15px_rgba(255,255,255,0.15)] text-sm"
-                >
-                  <div class="px-4 pt-1 pb-2">
-                    <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Audience</div>
-                    <div id="audienceOptions" class="space-y-0.5"></div>
-                  </div>
-                  <div class="h-px bg-x-line mx-4 my-1"></div>
-                  <div class="px-4 pt-1 pb-2">
-                    <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Who can reply</div>
-                    <div id="replyOptions" class="space-y-0.5"></div>
-                  </div>
+              <div
+                id="combinedPopup"
+                class="absolute left-0 top-full mt-2 z-50 hidden w-[340px] overflow-hidden rounded-2xl bg-black py-2 shadow-[0_0_15px_rgba(255,255,255,0.15)] text-sm"
+              >
+                <div class="px-4 pt-1 pb-2">
+                  <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Audience</div>
+                  <div id="audienceOptions" class="space-y-0.5"></div>
+                </div>
+                <div class="h-px bg-x-line mx-4 my-1"></div>
+                <div class="px-4 pt-1 pb-2">
+                  <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Who can reply</div>
+                  <div id="replyOptions" class="space-y-0.5"></div>
                 </div>
               </div>
             </div>
@@ -190,11 +189,12 @@
               id="postBtn"
               type="button"
               disabled
-              class="ml-3 rounded-full bg-x-btn px-5 py-1.5 text-sm font-bold text-x-ink/60 transition disabled:cursor-not-allowed enabled:bg-[#eff3f4] enabled:text-[#0f1419] enabled:hover:bg-[#d7dbdc]"
+              class="rounded-full bg-x-btn px-5 py-1.5 text-sm font-bold text-x-ink/60 transition disabled:cursor-not-allowed enabled:bg-[#eff3f4] enabled:text-[#0f1419] enabled:hover:bg-[#d7dbdc]"
             >
               Post
             </button>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -318,36 +318,12 @@
         return;
       }
 
-      const sel = window.getSelection();
-      if (!sel.rangeCount) {
-        cursorCounter.classList.add("hidden");
-        return;
-      }
-
-      const range = sel.getRangeAt(0).cloneRange();
-      range.collapse(true);
-
-      let rect;
-      try {
-        rect = range.getBoundingClientRect();
-      } catch (e) {
-        cursorCounter.classList.add("hidden");
-        return;
-      }
-
-      if (!rect || (rect.width === 0 && rect.height === 0)) {
-        cursorCounter.classList.add("hidden");
-        return;
-      }
-
-      const editorRect = editor.getBoundingClientRect();
-
-      const x = rect.left - editorRect.left + editor.scrollLeft;
-      const y = rect.top - editorRect.top + editor.scrollTop + rect.height + 1;
-
-      cursorCounter.style.left = `${Math.max(0, x)}px`;
-      cursorCounter.style.top = `${y}px`;
-      cursorCounter.textContent = remaining < 0 ? remaining : remaining;
+      // Reliable bottom-right position inside the editor (content area)
+      cursorCounter.style.right = "8px";
+      cursorCounter.style.bottom = "4px";
+      cursorCounter.style.left = "auto";
+      cursorCounter.style.top = "auto";
+      cursorCounter.textContent = remaining;
       cursorCounter.style.backgroundColor = remaining < 0 ? "rgba(244, 33, 46, 0.85)" : "rgba(0, 0, 0, 0.75)";
       cursorCounter.classList.remove("hidden");
     }
