@@ -164,6 +164,11 @@
   Larger character counter ring (32px) with more internal padding around the number
   Reduced left margin on audience globe icon
 
+0.10.26
+
+  Change "@mention" to "mention" in Who can reply options
+  Remove @ symbol from the audience dropdown label
+
 0.1.0
 
   Add .gitignore
