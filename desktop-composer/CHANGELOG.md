@@ -45,6 +45,11 @@
   Undim location pin in baseline and r2
   Visual consistency across all three versions
 
+0.10.2
+
+  Add assets to composer-r2
+  Complete standalone frozen reference
+
 0.1.0
 
   Add .gitignore
