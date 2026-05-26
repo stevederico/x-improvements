@@ -105,6 +105,11 @@
   Remove border circle from plus and audience icons
   Match style of other toolbar icons (no border)
 
+0.10.14
+
+  Move plus icon to left icon menu area
+  Make plus and audience icons h-5 w-5 and match other toolbar icons
+
 0.1.0
 
   Add .gitignore
