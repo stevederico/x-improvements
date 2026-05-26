@@ -74,8 +74,8 @@
           },
           colors: {
             x: {
-              accent: "#7857ff",
-              accentHover: "#6a4ae6",
+              accent: "#1D9BF0",
+              accentHover: "#1A8CD8",
               ink: "#e7e9ea",
               dim: "#71767b",
               line: "#2f3336",
@@ -200,21 +200,18 @@
       </div>
     </div>
 
-    <button
-      id="resetBtn"
-      type="button"
-      aria-label="Reset state"
-      title="Reset state"
-      class="fixed bottom-4 left-4 z-50 rounded-full bg-black/80 px-2 py-0.5 text-[10px] font-bold text-x-dim transition hover:bg-x-accent/10 hover:text-x-ink"
-    >
-      debug
-    </button>
+    <div id="debugBar" class="fixed bottom-4 left-4 z-50 flex items-center gap-1 rounded-full bg-black/80 px-2 py-0.5 text-[10px] font-bold text-x-dim">
+      <button id="resetBtn" class="hover:text-x-ink transition">reset</button>
+      <span class="text-x-dim/50">|</span>
+      <button id="modeBtn" class="hover:text-x-ink transition">Free</button>
+    </div>
   </div>
 
   <script>
     const editor = document.getElementById("editor");
     const postBtn = document.getElementById("postBtn");
     const resetBtn = document.getElementById("resetBtn");
+    const modeBtn = document.getElementById("modeBtn");
     const divider = document.getElementById("divider");
     const toolbar = document.getElementById("toolbar");
     const audienceIcon = document.getElementById("audienceIcon");
@@ -225,6 +222,7 @@
     const countText = document.getElementById("countText");
 
     const LIMIT = 280;
+    let isPremium = false; // false = Free (hard 280), true = Premium (long form)
 
     function getCaretPosition(element) {
       const selection = window.getSelection();
@@ -301,8 +299,8 @@
       const isEmpty = len === 0;
       const isOver = remaining < 0;
 
-      // Only show counter when it's actually needed (user hates the ring)
-      const showCounter = !isEmpty && remaining <= 40;
+      // Free mode: only show when within 10 chars. Premium: always hidden.
+      const showCounter = !isPremium && !isEmpty && remaining <= 10;
 
       if (showCounter) {
         countWrap.classList.remove("hidden");
@@ -314,7 +312,8 @@
         countWrap.classList.add("hidden");
       }
 
-      postBtn.disabled = isEmpty || isOver;
+      // Hard stop for free users
+      postBtn.disabled = isEmpty || (!isPremium && isOver);
     };
 
     // combined audience + reply popup (single icon trigger)
@@ -466,6 +465,12 @@
       updateCount();
     });
 
+    function updateModeUI() {
+      modeBtn.textContent = isPremium ? "Premium" : "Free";
+      modeBtn.classList.toggle("text-x-accent", isPremium);
+      updateCount();
+    }
+
     resetBtn.addEventListener("click", () => {
       editor.innerHTML = "";
       editor.blur();
@@ -478,6 +483,14 @@
       renderReplyOptions();
       closePopup();
     });
+
+    modeBtn.addEventListener("click", () => {
+      isPremium = !isPremium;
+      updateModeUI();
+    });
+
+    // Initialize mode UI
+    updateModeUI();
 
     // Initial state sync (button disabled, etc.)
     updateCount();

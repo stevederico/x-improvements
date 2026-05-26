@@ -71,6 +71,13 @@
   Remove hated ring completely
   Simple text counter, only shows when <= 40 remaining
 
+0.10.41
+
+  Add Free/Premium mode toggle in debug bar
+  Free: counter only when <=10 remaining + hard stop
+  Premium: counter completely hidden
+  Replace purple with official X blue
+
 0.3.0
 
   Hide icon row until focus in r1
