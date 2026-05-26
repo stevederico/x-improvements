@@ -80,6 +80,11 @@
   Remove Circle from audience options
   Contenteditable editor with live purple + clickable @handles on type
 
+0.10.9
+
+  Fix excessive line breaks when pasting multi-line text with @handles
+  Better newline → <br> handling + paste re-highlight
+
 0.1.0
 
   Add .gitignore

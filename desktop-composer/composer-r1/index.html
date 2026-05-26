@@ -201,17 +201,11 @@
       let text = el.innerText || '';
       // Escape for safety
       text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      // Explicitly turn newlines into <br> to avoid weird extra line breaks on paste
+      text = text.replace(/\n/g, '<br>');
       const highlighted = text.replace(/@(\w+)/g, '<span class="text-x-accent hover:underline cursor-pointer mention" data-handle="$1">@$1</span>');
       if (el.innerHTML !== highlighted) {
-        const sel = window.getSelection();
-        const range = sel.rangeCount ? sel.getRangeAt(0) : null;
         el.innerHTML = highlighted;
-        // Move cursor to end (simple but workable for this demo)
-        const newRange = document.createRange();
-        newRange.selectNodeContents(el);
-        newRange.collapse(false);
-        sel.removeAllRanges();
-        sel.addRange(newRange);
       }
     }
 
@@ -345,6 +339,15 @@
       highlightMentions(editor);
       autoGrow();
       updateCount();
+    });
+
+    editor.addEventListener("paste", () => {
+      // Re-highlight after paste (paste can bring raw newlines)
+      setTimeout(() => {
+        highlightMentions(editor);
+        autoGrow();
+        updateCount();
+      }, 0);
     });
 
     editor.addEventListener("click", (e) => {
