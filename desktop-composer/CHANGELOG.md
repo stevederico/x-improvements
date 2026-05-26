@@ -60,6 +60,11 @@
   Fix "Twitter Circle" label to "Circle"
   Current X terminology
 
+0.10.5
+
+  Add "Accounts you follow and who they follow" to who can reply
+  Inserted above "Only accounts you mention"
+
 0.1.0
 
   Add .gitignore
