@@ -111,8 +111,8 @@
               data-placeholder="What's happening?"
             ></div>
             <span id="cursorCounter"
-                  class="pointer-events-none absolute z-50 hidden select-none whitespace-nowrap rounded bg-[#1d1f23] text-[10px] font-bold leading-none text-white"
-                  style="font-size: 10px; line-height: 1; min-width: 18px; text-align: center;"></span>
+                  class="pointer-events-none absolute z-50 hidden select-none whitespace-nowrap text-[10px] font-bold leading-none text-white"
+                  style="font-size: 10px; line-height: 1; min-width: 16px; text-align: right;"></span>
           </div>
 
           <!-- divider -->
@@ -335,18 +335,18 @@
         return;
       }
 
-      // Free only, <=10: tiny, no border, sitting right on top of the divider line
-      cursorCounter.style.right = "2px";
-      cursorCounter.style.bottom = "-10px";
+      // Brutalist: raw number only, no decoration, red when critical
+      cursorCounter.style.right = "0";
+      cursorCounter.style.bottom = "-9px";
       cursorCounter.style.left = "auto";
       cursorCounter.style.top = "auto";
       cursorCounter.textContent = remaining;
-      cursorCounter.style.backgroundColor = remaining <= 5 ? "#b91c1c" : "#1f2937";
+      cursorCounter.style.backgroundColor = "transparent";
       cursorCounter.style.border = "none";
-      cursorCounter.style.color = "#fff";
-      cursorCounter.style.fontSize = "10px";
-      cursorCounter.style.padding = "0 3px";
-      cursorCounter.style.borderRadius = "3px";
+      cursorCounter.style.color = remaining <= 5 ? "#f00" : "#fff";
+      cursorCounter.style.fontSize = "11px";
+      cursorCounter.style.padding = "0";
+      cursorCounter.style.borderRadius = "0";
       cursorCounter.style.boxShadow = "none";
       cursorCounter.style.zIndex = "50";
       cursorCounter.classList.remove("hidden");

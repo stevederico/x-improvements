@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.53
+
+  Brutalist counter: raw number
+  No bg border radius or padding
+
 0.10.52
 
   Smaller 10px counter
