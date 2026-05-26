@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.49
+
+  Fix globe icon bright white
+  Apply text-x-dim explicitly
+
 0.10.48
 
   Match audience globe to other icon colors
