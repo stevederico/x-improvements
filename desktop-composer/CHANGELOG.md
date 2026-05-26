@@ -135,6 +135,11 @@
   Make countdown circle even larger (28px)
   r=11.5, bigger text, better visual weight
 
+0.10.20
+
+  Fix Post button not enabling on first characters
+  Call updateCount() before highlightMentions + initial sync
+
 0.1.0
 
   Add .gitignore

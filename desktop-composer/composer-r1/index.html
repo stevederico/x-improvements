@@ -347,9 +347,9 @@
     };
 
     editor.addEventListener("input", () => {
-      highlightMentions(editor);
       autoGrow();
-      updateCount();
+      updateCount();               // check length & button state *before* DOM mutation
+      highlightMentions(editor);   // then apply @mention styling
     });
 
     editor.addEventListener("paste", () => {
@@ -391,6 +391,9 @@
       renderReplyOptions();
       closePopup();
     });
+
+    // Initial state sync (button disabled, etc.)
+    updateCount();
   </script>
 </body>
 </html>
