@@ -95,6 +95,11 @@
   Move audience button from left icons to right side (near + / count area)
   Swapped position with the add post button area
 
+0.10.12
+
+  Swap plus icon button and audience button
+  Plus now before countWrap; audience inside count area
+
 0.1.0
 
   Add .gitignore

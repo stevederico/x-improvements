@@ -106,33 +106,15 @@
           </div>
 
           <div class="flex items-center">
-            <!-- audience button moved to right side (swapped with + area) -->
-            <div class="relative mr-2">
-              <button
-                id="audienceIcon"
-                type="button"
-                aria-label="Audience and reply settings"
-                title="Audience and reply settings"
-                class="rounded-full p-2 transition hover:bg-x-accent/10"
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-              </button>
-
-              <div
-                id="combinedPopup"
-                class="absolute left-0 top-full mt-2 z-50 hidden w-[340px] overflow-hidden rounded-2xl bg-black py-2 shadow-[0_0_15px_rgba(255,255,255,0.15)] text-sm"
-              >
-                <div class="px-4 pt-1 pb-2">
-                  <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Audience</div>
-                  <div id="audienceOptions" class="space-y-0.5"></div>
-                </div>
-                <div class="h-px bg-x-line mx-4 my-1"></div>
-                <div class="px-4 pt-1 pb-2">
-                  <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Who can reply</div>
-                  <div id="replyOptions" class="space-y-0.5"></div>
-                </div>
-              </div>
-            </div>
+            <!-- plus icon button moved here (swapped with audience) -->
+            <button
+              id="addBtn"
+              type="button"
+              aria-label="Add post"
+              class="flex h-7 w-7 items-center justify-center rounded-full border border-[#536471] text-x-accent transition hover:bg-x-accent/10 mr-2"
+            >
+              <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current"><path d="M11 11V4h2v7h7v2h-7v7h-2v-7H4v-2h7z" /></svg>
+            </button>
 
             <!-- char countdown + add post -->
             <div id="countWrap" class="hidden items-center gap-3">
@@ -148,14 +130,34 @@
               </svg>
               <span id="countText" class="hidden text-sm text-x-dim"></span>
               <div class="h-7 w-px bg-x-line"></div>
-              <button
-                id="addBtn"
-                type="button"
-                aria-label="Add post"
-                class="flex h-7 w-7 items-center justify-center rounded-full border border-[#536471] text-x-accent transition hover:bg-x-accent/10"
-              >
-                <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current"><path d="M11 11V4h2v7h7v2h-7v7h-2v-7H4v-2h7z" /></svg>
-              </button>
+
+              <!-- audience button now inside count area (swapped) -->
+              <div class="relative">
+                <button
+                  id="audienceIcon"
+                  type="button"
+                  aria-label="Audience and reply settings"
+                  title="Audience and reply settings"
+                  class="flex h-7 w-7 items-center justify-center rounded-full border border-[#536471] text-x-accent transition hover:bg-x-accent/10"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true" class="h-4 w-4 fill-current"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </button>
+
+                <div
+                  id="combinedPopup"
+                  class="absolute left-0 top-full mt-2 z-50 hidden w-[340px] overflow-hidden rounded-2xl bg-black py-2 shadow-[0_0_15px_rgba(255,255,255,0.15)] text-sm"
+                >
+                  <div class="px-4 pt-1 pb-2">
+                    <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Audience</div>
+                    <div id="audienceOptions" class="space-y-0.5"></div>
+                  </div>
+                  <div class="h-px bg-x-line mx-4 my-1"></div>
+                  <div class="px-4 pt-1 pb-2">
+                    <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Who can reply</div>
+                    <div id="replyOptions" class="space-y-0.5"></div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <button
