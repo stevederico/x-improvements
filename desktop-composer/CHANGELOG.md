@@ -55,6 +55,11 @@
   Audience popup opens below icon like dropdown
   top-full instead of bottom-full
 
+0.10.4
+
+  Fix "Twitter Circle" label to "Circle"
+  Current X terminology
+
 0.1.0
 
   Add .gitignore
