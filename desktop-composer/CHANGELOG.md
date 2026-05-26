@@ -19,6 +19,12 @@
   Fix double tooltip overlap
   Keep only custom pills
 
+0.10.32
+
+  Remove yellow + red from counter
+  Ring always purple
+  Number always dim gray
+
 0.3.0
 
   Hide icon row until focus in r1

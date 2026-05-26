@@ -327,13 +327,12 @@
       }
 
       countProgress.style.strokeDashoffset = CIRC * (1 - Math.min(len / LIMIT, 1));
-      const color = isOver ? "#f4212e" : remaining <= 20 ? "#ffd400" : "#7856FF";
-      countProgress.setAttribute("stroke", color);
+      countProgress.setAttribute("stroke", "#7856FF");
 
       if (remaining <= 20) {
         countText.classList.remove("hidden");
         countText.textContent = remaining;
-        countText.style.color = isOver ? "#f4212e" : "#71767b";
+        countText.style.color = "#71767b";
       } else {
         countText.classList.add("hidden");
       }
