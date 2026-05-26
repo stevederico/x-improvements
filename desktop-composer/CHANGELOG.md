@@ -1,5 +1,12 @@
 - Review remaining compliance gaps
 
+0.10.29
+
+  Add icon hover states
+  Scale + shadow circle
+  Bold on hover
+  Custom pill tooltips
+
 0.3.0
 
   Hide icon row until focus in r1
