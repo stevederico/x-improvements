@@ -95,6 +95,11 @@
   Temporarily show in Free mode whenever there's text (for visibility)
   Will tighten back to <=10 remaining after confirmation
 
+0.10.45
+
+  Further improved visibility of bottom-right editor counter (larger font, solid colors, border)
+  Always on in Free for now so user can see it working
+
 0.3.0
 
   Hide icon row until focus in r1

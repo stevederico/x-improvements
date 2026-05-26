@@ -313,21 +313,17 @@
       const len = [...text].length;
       const remaining = LIMIT - len;
 
-      // TEMP: show in Free mode for visibility testing (even if >10)
-      if (len === 0) {
-        cursorCounter.classList.add("hidden");
-        return;
-      }
-
-      // Reliable bottom-right position inside the editor (content area)
+      // Show in Free mode at bottom-right of editor (content area)
       cursorCounter.style.right = "8px";
-      cursorCounter.style.bottom = "4px";
+      cursorCounter.style.bottom = "6px";
       cursorCounter.style.left = "auto";
       cursorCounter.style.top = "auto";
       cursorCounter.textContent = remaining;
-      cursorCounter.style.backgroundColor = remaining < 0 ? "#f4212e" : "#1d9bf0";
-      cursorCounter.style.borderColor = "#fff";
+      cursorCounter.style.backgroundColor = remaining <= 0 ? "#f4212e" : "#1d9bf0";
+      cursorCounter.style.border = "1px solid #fff";
       cursorCounter.style.color = "#fff";
+      cursorCounter.style.fontSize = "13px";
+      cursorCounter.style.padding = "2px 6px";
       cursorCounter.classList.remove("hidden");
     }
 
