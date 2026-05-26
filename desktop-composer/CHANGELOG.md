@@ -169,6 +169,11 @@
   Change "@mention" to "mention" in Who can reply options
   Remove @ symbol from the audience dropdown label
 
+0.10.27
+
+  Force empty DOM on clear so placeholder reappears
+  Fix :empty after contenteditable backspace debris
+
 0.1.0
 
   Add .gitignore

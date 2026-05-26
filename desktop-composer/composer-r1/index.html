@@ -263,7 +263,18 @@
     }
 
     const updateCount = () => {
-      const len = [...(editor.innerText || '')].length;
+      let text = editor.innerText || '';
+
+      // Force truly empty DOM so CSS :empty placeholder shows again after clears.
+      // contenteditable leaves <br>/text nodes; :empty only works on zero children.
+      if (text.trim().length === 0) {
+        if (editor.innerHTML !== '') {
+          editor.innerHTML = '';
+        }
+        text = '';
+      }
+
+      const len = [...text].length;
       const remaining = LIMIT - len;
 
       const isEmpty = len === 0;
