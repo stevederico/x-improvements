@@ -20,6 +20,11 @@
   Move world icon into toolbar row
   Same dim color as other icons
 
+0.7.0
+
+  Change reset to hammer icon
+  Position in lower left corner
+
 0.1.0
 
   Add .gitignore
