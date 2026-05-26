@@ -75,6 +75,11 @@
   Make @mention clickable with underline on hover
   cursor-pointer + hover:underline
 
+0.10.8
+
+  Remove Circle from audience options
+  Contenteditable editor with live purple + clickable @handles on type
+
 0.1.0
 
   Add .gitignore

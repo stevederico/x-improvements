@@ -21,6 +21,12 @@
       src: url(assets/Chirp-Bold.woff2) format('woff2');
       font-weight: 700; font-display: swap;
     }
+
+    #editor:empty:before {
+      content: attr(data-placeholder);
+      color: #71767b;
+      pointer-events: none;
+    }
   </style>
   <script src="assets/tailwind.js"></script>
   <script>
@@ -60,12 +66,12 @@
 
         <div class="flex-1">
           <!-- editor -->
-          <textarea
+          <div
             id="editor"
-            rows="1"
-            placeholder="What's happening?"
-            class="block w-full resize-none overflow-hidden bg-transparent py-2 text-xl text-x-ink placeholder:text-x-dim focus:outline-none"
-          ></textarea>
+            contenteditable="true"
+            class="block w-full min-h-[28px] py-2 text-xl text-x-ink focus:outline-none whitespace-pre-wrap break-words"
+            data-placeholder="What's happening?"
+          ></div>
 
           <!-- divider -->
           <div id="divider" class="my-3 hidden h-px w-full bg-x-line"></div>
@@ -191,8 +197,26 @@
     const LIMIT = 280;
     const CIRC = 56.549; // 2πr, r=9
 
+    function highlightMentions(el) {
+      let text = el.innerText || '';
+      // Escape for safety
+      text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const highlighted = text.replace(/@(\w+)/g, '<span class="text-x-accent hover:underline cursor-pointer mention" data-handle="$1">@$1</span>');
+      if (el.innerHTML !== highlighted) {
+        const sel = window.getSelection();
+        const range = sel.rangeCount ? sel.getRangeAt(0) : null;
+        el.innerHTML = highlighted;
+        // Move cursor to end (simple but workable for this demo)
+        const newRange = document.createRange();
+        newRange.selectNodeContents(el);
+        newRange.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(newRange);
+      }
+    }
+
     const updateCount = () => {
-      const len = [...editor.value].length;
+      const len = [...(editor.innerText || '')].length;
       if (len === 0) {
         countWrap.classList.remove("flex");
         countWrap.classList.add("hidden");
@@ -224,7 +248,6 @@
 
     const audienceChoices = [
       { value: "everyone", label: "Everyone", icon: `<circle cx="12" cy="12" r="10"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/>` },
-      { value: "circle", label: "Circle", icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>` },
       { value: "followers", label: "Followers only", icon: `<path d="M12 1.75C6.34 1.75 1.75 6.34 1.75 12S6.34 22.25 12 22.25 22.25 17.66 22.25 12 17.66 1.75 12 1.75zm0 5.25a3.75 3.75 0 1 1 0 7.5 3.75 3.75 0 0 1 0-7.5z"/>` },
     ];
 
@@ -319,19 +342,31 @@
     };
 
     editor.addEventListener("input", () => {
+      highlightMentions(editor);
       autoGrow();
       updateCount();
     });
 
+    editor.addEventListener("click", (e) => {
+      if (e.target.classList.contains("mention")) {
+        // Make it clickable - select the mention text
+        const range = document.createRange();
+        range.selectNodeContents(e.target);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    });
+
     postBtn.addEventListener("click", () => {
       if (postBtn.disabled) return;
-      editor.value = "";
+      editor.innerHTML = "";
       autoGrow();
       updateCount();
     });
 
     resetBtn.addEventListener("click", () => {
-      editor.value = "";
+      editor.innerHTML = "";
       editor.blur();
       autoGrow();
       updateCount();
