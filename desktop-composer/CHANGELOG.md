@@ -30,6 +30,11 @@
   Make reset hammer fixed to page lower left
   True debug tool positioning
 
+0.9.0
+
+  Replace broken hammer with "debug" text
+  Cleaner debug label in corner
+
 0.1.0
 
   Add .gitignore
