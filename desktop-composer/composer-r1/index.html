@@ -91,7 +91,7 @@
 </head>
 <body class="min-h-screen bg-black flex flex-col items-center p-8 font-sans text-x-ink">
   <div class="w-full max-w-[620px]">
-    <div class="border border-x-line p-3">
+    <div id="composer" class="border border-x-line p-3">
       <div class="flex gap-3">
         <!-- avatar -->
         <img
@@ -222,6 +222,7 @@
     const audienceOptions = document.getElementById("audienceOptions");
     const replyOptions = document.getElementById("replyOptions");
     const cursorCounter = document.getElementById("cursorCounter");
+    const composer = document.getElementById("composer");
 
     const LIMIT = 280;
     let isPremium = false; // false = Free (hard 280), true = Premium (long form)
@@ -420,6 +421,9 @@
       if (!combinedPopup.classList.contains("hidden") && !combinedPopup.contains(e.target) && e.target !== audienceIcon) {
         closePopup();
       }
+      if (!composer.contains(e.target) && document.activeElement !== editor) {
+        hide();
+      }
     });
 
     const reveal = () => {
@@ -434,8 +438,12 @@
 
     editor.addEventListener("focus", reveal);
 
-    editor.addEventListener("blur", () => {
+    editor.addEventListener("blur", (e) => {
       if (cursorCounter) cursorCounter.classList.add("hidden");
+      const next = e.relatedTarget;
+      if (next && composer.contains(next)) return;
+      hide();
+      closePopup();
     });
 
     // Prevent highlight replacement from fighting Enter/Return

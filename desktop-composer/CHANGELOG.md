@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.59
+
+  Collapse on outside click
+  Hide toolbar after blur
+
 0.10.58
 
   Fix audience popup overflow
