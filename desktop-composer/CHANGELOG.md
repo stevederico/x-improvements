@@ -2,7 +2,8 @@
 
 0.10.61
 
-  Fix outside-click collapse
+  Fix Return-key text scramble
+  Measure caret in innerText units (marker-based)
 
 0.10.60
 
