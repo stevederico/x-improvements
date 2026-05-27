@@ -1,5 +1,13 @@
 - Review remaining compliance gaps
 
+0.10.73
+
+  Move Disclosure to more menu
+  Keep toolbar visible in fullscreen
+  Anchor counter to bottom line
+  Fix fullscreen menu positioning
+  Remove stray divider in fullscreen
+
 0.10.72
 
   Fix generate image icon
