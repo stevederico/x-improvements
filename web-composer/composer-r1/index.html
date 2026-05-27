@@ -279,7 +279,7 @@
                 <div class="px-4 pt-1 pb-2">
                   <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">View</div>
                   <div class="space-y-0.5">
-                    <button type="button" data-action="fullscreen" class="flex w-full items-center gap-3 px-3 py-2 text-left rounded-xl transition hover:bg-white/5">
+                    <button id="menuFullscreenBtn" type="button" data-action="fullscreen" class="flex w-full items-center gap-3 px-3 py-2 text-left rounded-xl transition hover:bg-white/5">
                       <span class="shrink-0 text-x-ink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></span>
                       <span class="flex-1 text-[13px] font-bold text-x-ink">Fullscreen</span>
                     </button>
@@ -623,6 +623,11 @@
     // more menu (3 dots dropdown like audience)
     const closeMoreMenu = () => moreMenu && moreMenu.classList.add("hidden");
 
+    function syncFullscreenMenuItem() {
+      const btn = document.getElementById('menuFullscreenBtn');
+      if (btn) btn.style.display = composer.classList.contains('is-fullscreen') ? 'none' : '';
+    }
+
     let fullscreenTopbar = null;
 
     function toggleFullscreen() {
@@ -646,6 +651,7 @@
               fullscreenTopbar.remove();
               fullscreenTopbar = null;
             }
+            syncFullscreenMenuItem();
           });
         }
 
@@ -675,6 +681,7 @@
           hide();
         }
       }
+      syncFullscreenMenuItem();
     }
 
     // Reliable global Escape handler for fullscreen
@@ -685,6 +692,7 @@
           fullscreenTopbar.remove();
           fullscreenTopbar = null;
         }
+        syncFullscreenMenuItem();
       }
     });
 
@@ -692,6 +700,7 @@
       moreBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         closePopup(); // close the other menu if open
+        syncFullscreenMenuItem();
         moreMenu.classList.toggle("hidden");
       });
 
