@@ -1,5 +1,14 @@
 - Review remaining compliance gaps
 
+0.10.72
+
+  Fix generate image icon
+  Improve autodemo for GIF
+  Paste post instantly
+  Hover generate image
+  Demo smart formatting
+  Shorten focus pause
+
 0.10.71
 
   Remove quick start section
