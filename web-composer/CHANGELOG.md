@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.62
+
+  Remove unused composer-r2
+  Rename desktop-composer to web-composer
+
 0.10.61
 
   Fix Return-key text scramble
