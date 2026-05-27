@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.58
+
+  Fix audience popup overflow
+  Right-align menu to border
+
 0.10.57
 
   Swap generate image icon
