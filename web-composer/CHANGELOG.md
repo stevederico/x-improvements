@@ -1,5 +1,13 @@
 - Review remaining compliance gaps
 
+0.10.74
+
+  Add theme toggle
+  Persist user preference
+  Support light dark
+  Refactor to CSS vars
+  Theme all components
+
 0.10.73
 
   Move Disclosure to more menu

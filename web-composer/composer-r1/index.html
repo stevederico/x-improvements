@@ -5,7 +5,34 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Compose</title>
+  <script>try{if(localStorage.getItem("composer-theme")==="light")document.documentElement.classList.add("light");}catch(e){}</script>
   <style>
+    :root {
+      --x-bg:#000; --x-ink:#e7e9ea; --x-dim:#71767b; --x-line:#2f3336; --x-btn:#3a3a3c;
+      --x-hover:#202327; --x-tooltip-bg:#181818; --x-menu-bg:#16181c;
+      --x-menu-shadow:0 0 15px rgba(255,255,255,0.15); --x-pop-shadow:0 4px 12px rgba(0,0,0,0.6);
+      --x-overlay:rgba(255,255,255,0.06); --x-overlay-strong:rgba(255,255,255,0.10);
+      --x-divider:rgba(255,255,255,0.20); --x-menu-border:rgba(255,255,255,0.10);
+      --x-post-bg:#eff3f4; --x-post-text:#0f1419; --x-post-hover:#d7dbdc;
+    }
+    html.light {
+      --x-bg:#fff; --x-ink:#0f1419; --x-dim:#536471; --x-line:#cfd9de; --x-btn:#e1e8ed;
+      --x-hover:#e7ecf0; --x-tooltip-bg:#0f1419; --x-menu-bg:#fff;
+      --x-menu-shadow:0 0 15px rgba(0,0,0,0.15); --x-pop-shadow:0 4px 12px rgba(0,0,0,0.25);
+      --x-overlay:rgba(15,20,25,0.06); --x-overlay-strong:rgba(15,20,25,0.10);
+      --x-divider:rgba(15,20,25,0.20); --x-menu-border:rgba(15,20,25,0.10);
+      --x-post-bg:#0f1419; --x-post-text:#fff; --x-post-hover:#272c30;
+    }
+    /* themed surfaces that use inline utilities — ID rules override per theme */
+    #moreMenu, #combinedPopup { background: var(--x-menu-bg) !important; box-shadow: var(--x-menu-shadow) !important; color: var(--x-ink); }
+    #moreMenu button:hover, #combinedPopup button:hover { background: var(--x-overlay) !important; }
+    #formatPopover { background: var(--x-menu-bg) !important; border-color: var(--x-menu-border) !important; box-shadow: var(--x-pop-shadow) !important; }
+    #formatPopover button:hover { background: var(--x-overlay-strong) !important; }
+    #formatPopover > div.w-px { background: var(--x-divider) !important; }
+    #postBtn:enabled { background: var(--x-post-bg) !important; color: var(--x-post-text) !important; }
+    #postBtn:enabled:hover { background: var(--x-post-hover) !important; }
+    html.light #debugBar { background: rgba(255,255,255,0.85); }
+
     @font-face {
       font-family: TwitterChirp;
       src: url(assets/Chirp-Regular.woff2) format('woff2');
@@ -24,7 +51,7 @@
 
     #editor:empty:before {
       content: attr(data-placeholder);
-      color: #71767b;
+      color: var(--x-dim);
       pointer-events: none;
     }
 
@@ -33,8 +60,8 @@
       transition: background-color 0.1s ease, color 0.1s ease;
     }
     .icon-btn:hover {
-      background-color: #202327;
-      color: #e7e9ea;
+      background-color: var(--x-hover);
+      color: var(--x-ink);
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
     }
     .icon-btn:hover svg,
@@ -49,7 +76,7 @@
       left: 50%;
       transform: translateX(-50%);
       margin-top: 6px;
-      background-color: #181818;
+      background-color: var(--x-tooltip-bg);
       color: #e7e9ea;
       font-size: 11px;
       line-height: 1;
@@ -75,7 +102,7 @@
       z-index: 100;
       display: flex;
       flex-direction: column;
-      background: #000;
+      background: var(--x-bg);
       border: none;
       padding: 0;
       box-shadow: none;
@@ -111,8 +138,8 @@
     #composer.is-fullscreen #toolbar {
       position: sticky;
       bottom: 0;
-      background: #000;
-      border-top: 1px solid #2f3336;
+      background: var(--x-bg);
+      border-top: 1px solid var(--x-line);
       padding: 12px 0;
       margin-top: auto;
       z-index: 20;
@@ -137,8 +164,8 @@
       position: sticky;
       top: 0;
       z-index: 30;
-      background: #000;
-      border-bottom: 1px solid #2f3336;
+      background: var(--x-bg);
+      border-bottom: 1px solid var(--x-line);
       padding: 10px 24px;
       display: flex;
       align-items: center;
@@ -158,8 +185,8 @@
       border-radius: 9999px;
     }
     #composer.is-fullscreen .fullscreen-topbar #exitFullscreenBtn:hover {
-      background-color: #202327;
-      color: #e7e9ea;
+      background-color: var(--x-hover);
+      color: var(--x-ink);
     }
 
     /* Visual feedback when Disclosure is enabled */
@@ -179,10 +206,11 @@
             x: {
               accent: "#1D9BF0",
               accentHover: "#1A8CD8",
-              ink: "#e7e9ea",
-              dim: "#71767b",
-              line: "#2f3336",
-              btn: "#3a3a3c",
+              bg: "var(--x-bg)",
+              ink: "var(--x-ink)",
+              dim: "var(--x-dim)",
+              line: "var(--x-line)",
+              btn: "var(--x-btn)",
             },
           },
         },
@@ -190,7 +218,7 @@
     };
   </script>
 </head>
-<body class="min-h-screen bg-black flex flex-col items-center p-8 font-sans text-x-ink">
+<body class="min-h-screen bg-x-bg flex flex-col items-center p-8 font-sans text-x-ink">
   <div class="w-full max-w-[620px]">
     <div id="composer" class="border border-x-line p-3">
       <div class="flex gap-3">
@@ -359,6 +387,8 @@
       <button id="resetBtn" class="hover:text-x-ink transition">reset</button>
       <span class="text-x-dim/50">|</span>
       <button id="modeBtn" class="hover:text-x-ink transition font-bold">Free</button>
+      <span class="text-x-dim/50">|</span>
+      <button id="themeBtn" class="hover:text-x-ink transition font-bold">🌙 Dark</button>
     </div>
   </div>
 
@@ -380,6 +410,21 @@
     const italicBtn = document.getElementById("italicBtn");
     const moreBtn = document.getElementById("moreBtn");
     const moreMenu = document.getElementById("moreMenu");
+    const themeBtn = document.getElementById("themeBtn");
+
+    // light/dark theme switcher (dev bar)
+    const THEME_KEY = "composer-theme";
+    function applyTheme(theme) {
+      const light = theme === "light";
+      document.documentElement.classList.toggle("light", light);
+      themeBtn.textContent = light ? "☀ Light" : "🌙 Dark";
+    }
+    applyTheme(localStorage.getItem(THEME_KEY) || "dark");
+    themeBtn.addEventListener("click", () => {
+      const next = document.documentElement.classList.contains("light") ? "dark" : "light";
+      localStorage.setItem(THEME_KEY, next);
+      applyTheme(next);
+    });
 
     const LIMIT = 280;
     let isPremium = false; // false = Free (hard 280), true = Premium (long form)
@@ -535,7 +580,7 @@
       cursorCounter.textContent = remaining;
       cursorCounter.style.backgroundColor = "transparent";
       cursorCounter.style.border = "none";
-      cursorCounter.style.color = "#fff";
+      cursorCounter.style.color = "var(--x-ink)";
       cursorCounter.style.fontSize = "11px";
       cursorCounter.style.padding = "0";
       cursorCounter.style.borderRadius = "0";
