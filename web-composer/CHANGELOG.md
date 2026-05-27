@@ -1,5 +1,9 @@
 - Review remaining compliance gaps
 
+0.10.71
+
+  Remove quick start section
+
 0.10.70
 
   Clarify smart formatting highlight

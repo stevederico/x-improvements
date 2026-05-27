@@ -8,12 +8,6 @@ my ideas for redesigning x.com, one component at a time
 
 <br />
 
-## 🚀 Quick Start
-
-Open `index.html` locally (no build, no install) to browse the components, or try each one live from the links below.
-
-<br />
-
 ## 🧩 Components
 
 A growing set of redesigned X components. More to come.
