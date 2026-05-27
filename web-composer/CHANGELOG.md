@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.75
+
+  Restore composer demo gif
+  Revert wallpaper capture
+
 0.10.74
 
   Add theme toggle
