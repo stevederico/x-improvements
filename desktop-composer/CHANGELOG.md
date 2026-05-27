@@ -1,5 +1,11 @@
 - Review remaining compliance gaps
 
+0.10.57
+
+  Swap generate image icon
+  Rename tooltip to Generate image
+  Rename Sensitive tooltip to Disclosure
+
 0.10.56
 
   Lock counter to white
