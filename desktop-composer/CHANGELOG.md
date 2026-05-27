@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.60
+
+  Walk live DOM for selection
+  Hide format popup on clickable text
+
 0.10.59
 
   Collapse on outside click

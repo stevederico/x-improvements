@@ -201,6 +201,16 @@
         </div>
         </div>
       </div>
+
+      <!-- Bold/Italic selection popover (inside composer so collapse guards don't fire on it) -->
+      <div
+        id="formatPopover"
+        class="hidden fixed z-[70] bg-[#16181c] text-x-ink rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.6)] border border-white/10 overflow-hidden flex items-center text-sm font-sans"
+      >
+        <button id="boldBtn" type="button" class="px-3 py-1 hover:bg-white/10 font-bold transition-colors">B</button>
+        <div class="w-px h-3.5 bg-white/20"></div>
+        <button id="italicBtn" type="button" class="px-3 py-1 hover:bg-white/10 italic transition-colors">I</button>
+      </div>
     </div>
 
     <div id="debugBar" class="fixed bottom-4 left-4 z-50 flex items-center gap-1 rounded-full bg-black/80 px-2 py-0.5 text-[10px] font-bold text-x-dim">
@@ -223,6 +233,9 @@
     const replyOptions = document.getElementById("replyOptions");
     const cursorCounter = document.getElementById("cursorCounter");
     const composer = document.getElementById("composer");
+    const formatPopover = document.getElementById("formatPopover");
+    const boldBtn = document.getElementById("boldBtn");
+    const italicBtn = document.getElementById("italicBtn");
 
     const LIMIT = 280;
     let isPremium = false; // false = Free (hard 280), true = Premium (long form)
@@ -269,15 +282,26 @@
       }
     }
 
-    function highlightMentions(el, savedPos = null) {
+    function highlightInteractiveText(el, savedPos = null) {
       const pos = savedPos !== null ? savedPos : getCaretPosition(el);
 
       let text = el.innerText || '';
       // Escape for safety
       text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      // Explicitly turn newlines into <br> to avoid weird extra line breaks on paste
-      text = text.replace(/\n/g, '<br>');
-      const highlighted = text.replace(/@(\w+)/g, '<span class="text-x-accent hover:underline cursor-pointer mention" data-handle="$1">@$1</span>');
+
+      // Replace usernames (@mentions) and URLs with clickable spans
+      const highlighted = text.replace(
+        /(@\w+)|(https?:\/\/[^\s]+|www\.[^\s]+)/gi,
+        (match, mention, url) => {
+          if (mention) {
+            return `<span class="text-x-accent cursor-pointer mention" data-handle="${mention.slice(1)}">${mention}</span>`;
+          }
+          if (url) {
+            return `<span class="text-x-accent cursor-pointer link" data-url="${url}">${url}</span>`;
+          }
+          return match;
+        }
+      ).replace(/\n/g, '<br>');
 
       if (el.innerHTML !== highlighted) {
         el.innerHTML = highlighted;
@@ -423,6 +447,11 @@
       }
       if (!composer.contains(e.target) && document.activeElement !== editor) {
         hide();
+        hideFormatPopover();
+      }
+      // Hide format popover if clicking outside editor + popover
+      if (formatPopover && !formatPopover.contains(e.target) && !editor.contains(e.target)) {
+        hideFormatPopover();
       }
     });
 
@@ -434,12 +463,82 @@
     const hide = () => {
       divider.classList.add("hidden");
       toolbar.classList.add("hidden");
+      hideFormatPopover();
+    };
+
+    const hideFormatPopover = () => {
+      if (!formatPopover) return;
+      formatPopover.classList.add("hidden");
+      formatPopover.style.opacity = "0";
+    };
+
+    const selectionIsOnlyClickable = (range) => {
+      if (!range || range.collapsed) return false;
+      // Walk the LIVE DOM (not cloneContents — a single-text-node selection clones
+      // to a bare text node with no parent span, losing the .mention/.link context).
+      const walker = document.createTreeWalker(editor, NodeFilter.SHOW_TEXT, null);
+      let node;
+      let sawClickable = false;
+      while ((node = walker.nextNode())) {
+        if (!range.intersectsNode(node)) continue;
+        // Only inspect the portion of this text node inside the selection.
+        let start = 0;
+        let end = node.textContent.length;
+        if (node === range.startContainer) start = range.startOffset;
+        if (node === range.endContainer) end = range.endOffset;
+        const text = node.textContent.slice(start, end).trim();
+        if (text) {
+          const parent = node.parentElement;
+          // Treat both @usernames and URLs as non-formatable "clickable" text
+          if (!parent || !parent.closest('.mention, .link')) return false;
+          sawClickable = true;
+        }
+      }
+      return sawClickable;
+    };
+
+    const showFormatPopover = () => {
+      if (!formatPopover || !editor) return;
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed || !sel.rangeCount) {
+        hideFormatPopover();
+        return;
+      }
+      const range = sel.getRangeAt(0);
+      if (!editor.contains(range.commonAncestorContainer)) {
+        hideFormatPopover();
+        return;
+      }
+      if (selectionIsOnlyClickable(range)) {
+        hideFormatPopover();
+        return;
+      }
+      const rect = range.getBoundingClientRect();
+      formatPopover.classList.remove("hidden");
+      formatPopover.style.opacity = "0";
+      requestAnimationFrame(() => {
+        const pw = formatPopover.offsetWidth || 68;
+        const left = rect.left + rect.width / 2 - pw / 2;
+        const top = rect.bottom + 6;
+        formatPopover.style.left = `${Math.max(8, left)}px`;
+        formatPopover.style.top = `${top}px`;
+        formatPopover.style.opacity = "1";
+      });
+    };
+
+    const updateFormatPopover = () => {
+      if (document.activeElement === editor) {
+        showFormatPopover();
+      } else {
+        hideFormatPopover();
+      }
     };
 
     editor.addEventListener("focus", reveal);
 
     editor.addEventListener("blur", (e) => {
       if (cursorCounter) cursorCounter.classList.add("hidden");
+      hideFormatPopover();
       const next = e.relatedTarget;
       if (next && composer.contains(next)) return;
       hide();
@@ -491,9 +590,12 @@
           return;
         }
 
-        // Only do the expensive innerHTML replacement if there are @mentions to process.
-        if (editor.innerText.includes('@')) {
-          highlightMentions(editor, pos);
+        // Process @mentions and URLs into clickable elements.
+        // Skip if formatting (bold/italic) is present so we don't destroy the wrappers.
+        const hasInteractive = /@|https?:\/\/|www\./i.test(editor.innerText);
+        if (hasInteractive &&
+            !/<(b|i|strong|em)\b/i.test(editor.innerHTML)) {
+          highlightInteractiveText(editor, pos);
         }
         updateCount();
         updateCursorCounter();
@@ -509,7 +611,9 @@
     editor.addEventListener("paste", () => {
       // Re-highlight after paste (paste can bring raw newlines)
       setTimeout(() => {
-        highlightMentions(editor);
+        if (!/<(b|i|strong|em)\b/i.test(editor.innerHTML)) {
+          highlightInteractiveText(editor);
+        }
         autoGrow();
         updateCount();
         updateCursorCounter();
@@ -517,9 +621,10 @@
     });
 
     editor.addEventListener("click", (e) => {
-      if (e.target.classList.contains("mention")) {
+      const clickable = e.target.closest('.mention, .link');
+      if (clickable) {
         const range = document.createRange();
-        range.selectNodeContents(e.target);
+        range.selectNodeContents(clickable);
         const sel = window.getSelection();
         sel.removeAllRanges();
         sel.addRange(range);
@@ -527,9 +632,16 @@
       updateCursorCounter();
     });
 
+    editor.addEventListener("mouseup", () => {
+      setTimeout(updateFormatPopover, 0);
+    });
+
     document.addEventListener("selectionchange", () => {
       if (document.activeElement === editor) {
         updateCursorCounter();
+        updateFormatPopover();
+      } else {
+        hideFormatPopover();
       }
     });
 
@@ -565,6 +677,27 @@
       isPremium = !isPremium;
       updateModeUI();
     });
+
+    // Bold / Italic formatting popover buttons
+    if (boldBtn && italicBtn) {
+      const preventHide = (e) => e.preventDefault();
+      boldBtn.addEventListener("mousedown", preventHide);
+      italicBtn.addEventListener("mousedown", preventHide);
+
+      boldBtn.addEventListener("click", () => {
+        document.execCommand("bold", false, null);
+        hideFormatPopover();
+        updateCount();
+        updateCursorCounter();
+      });
+
+      italicBtn.addEventListener("click", () => {
+        document.execCommand("italic", false, null);
+        hideFormatPopover();
+        updateCount();
+        updateCursorCounter();
+      });
+    }
 
     // Initialize mode UI
     updateModeUI();
