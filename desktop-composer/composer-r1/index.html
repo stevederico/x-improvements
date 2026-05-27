@@ -241,6 +241,8 @@
     let isPremium = false; // false = Free (hard 280), true = Premium (long form)
     let lastInputWasEnter = false;
 
+    const isEditorEmpty = () => (editor.innerText || '').trim().length === 0;
+
     function getCaretPosition(element) {
       const selection = window.getSelection();
       if (!selection.rangeCount) return 0;
@@ -446,7 +448,7 @@
         closePopup();
       }
       if (!composer.contains(e.target) && document.activeElement !== editor) {
-        hide();
+        if (isEditorEmpty()) hide();
         hideFormatPopover();
       }
       // Hide format popover if clicking outside editor + popover
@@ -541,7 +543,7 @@
       hideFormatPopover();
       const next = e.relatedTarget;
       if (next && composer.contains(next)) return;
-      hide();
+      if (isEditorEmpty()) hide();
       closePopup();
     });
 

@@ -1,5 +1,9 @@
 - Review remaining compliance gaps
 
+0.10.61
+
+  Fix outside-click collapse
+
 0.10.60
 
   Walk live DOM for selection
