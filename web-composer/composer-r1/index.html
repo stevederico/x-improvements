@@ -475,9 +475,14 @@
           hideFormatPopover();
         }
       }
-      // Hide format popover if clicking outside editor + popover
+      // Hide format popover if clicking outside editor + popover — but NOT while a
+      // selection is still active. Ending a drag-select outside the editor (in the card
+      // padding/toolbar) fires a click on the card; hiding here would kill the popover on
+      // the very gesture that made the selection. Real dismiss clicks collapse the
+      // selection (and/or blur the editor), which hide it via the other handlers.
       if (formatPopover && !formatPopover.contains(e.target) && !editor.contains(e.target)) {
-        hideFormatPopover();
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed) hideFormatPopover();
       }
     });
 

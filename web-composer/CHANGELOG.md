@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.69
+
+  Fix format popover vanishing on drag-select
+  Keep popover when selection active
+
 0.10.68
 
   Fix mid-word break in editor
