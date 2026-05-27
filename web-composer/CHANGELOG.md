@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.68
+
+  Fix mid-word break in editor
+  Use break-words not break-all
+
 0.10.67
 
   Trim two highlight bullets
