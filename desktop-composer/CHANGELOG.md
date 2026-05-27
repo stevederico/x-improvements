@@ -1,5 +1,10 @@
 - Review remaining compliance gaps
 
+0.10.61
+
+  Fix Return-key text scramble
+  Measure caret in innerText units (marker-based)
+
 0.10.60
 
   Walk live DOM for selection
