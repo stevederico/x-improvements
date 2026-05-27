@@ -1,5 +1,11 @@
 - Review remaining compliance gaps
 
+0.10.65
+
+  Add animated composer-r1 demo gif
+  Replace static screenshot with gif
+  Add live demo link to readme
+
 0.10.64
 
   Rename readme title to x-improvements

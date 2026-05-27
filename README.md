@@ -4,19 +4,23 @@
 
 my ideas for improving the x.com compose box — a self-contained html/js prototype
 
+**[▶ Try the live demo](https://stevederico.github.io/x-improvements/web-composer/composer-r1/index.html)**
+
 </div>
 
 <br />
 
 <div align="center">
-  <img src="screenshots/composer.png" alt="X compose box prototype" width="75%" />
+  <img src="screenshots/demo.gif" alt="X compose box prototype demo" width="75%" />
 </div>
 
 <br />
 
 ## 🚀 Quick Start
 
-Open `index.html` in a browser and pick a composer revision. No build or install.
+**Try it live:** [stevederico.github.io/x-improvements/web-composer/composer-r1](https://stevederico.github.io/x-improvements/web-composer/composer-r1/index.html)
+
+Or open `index.html` locally and pick a composer revision — no build or install.
 
 <br />
 
