@@ -38,11 +38,9 @@ A self-contained HTML/JS prototype of a redesigned X compose box.
 
 - **Focus-gated toolbar** — stays hidden until you focus the editor
 - **Premium-aware counter** — character count inlined and shown based on Free/Premium (hard 280 limit in Free mode)
-- **Live @mentions** — accent-colored and clickable, highlighting as you type
 - **Integrated audience menu** — audience and "who can reply" (6 options) folded into a single toolbar popup with live label sync
 - **Custom generate-image icon** — a bespoke glyph alongside photo, gif, poll, emoji, schedule, location, and disclosure
 - **Smart formatting** — bold/italic only applies to formattable text
-- **Post / add / reset** controls with proper disabled states
 
 Lives in `web-composer/` — a frozen `baseline` plus the working `composer-r1` revision.
 

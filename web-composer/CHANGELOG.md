@@ -1,5 +1,9 @@
 - Review remaining compliance gaps
 
+0.10.67
+
+  Trim two highlight bullets
+
 0.10.66
 
   Merge features and improvements
