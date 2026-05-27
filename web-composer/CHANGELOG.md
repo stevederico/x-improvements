@@ -1,5 +1,9 @@
 - Review remaining compliance gaps
 
+0.10.70
+
+  Clarify smart formatting highlight
+
 0.10.69
 
   Fix format popover vanishing on drag-select
