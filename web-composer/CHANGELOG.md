@@ -1,5 +1,11 @@
 - Review remaining compliance gaps
 
+0.10.66
+
+  Merge features and improvements
+  Add components index section
+  Group web composer details together
+
 0.10.65
 
   Add animated composer-r1 demo gif

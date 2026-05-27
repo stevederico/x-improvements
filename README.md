@@ -2,45 +2,49 @@
 
 # x-improvements
 
-my ideas for improving the x.com compose box — a self-contained html/js prototype
+my ideas for redesigning x.com, one component at a time
 
-**[▶ Try the live demo](https://stevederico.github.io/x-improvements/web-composer/composer-r1/index.html)**
-
-</div>
-
-<br />
-
-<div align="center">
-  <img src="screenshots/demo.gif" alt="X compose box prototype demo" width="75%" />
 </div>
 
 <br />
 
 ## 🚀 Quick Start
 
-**Try it live:** [stevederico.github.io/x-improvements/web-composer/composer-r1](https://stevederico.github.io/x-improvements/web-composer/composer-r1/index.html)
-
-Or open `index.html` locally and pick a composer revision — no build or install.
+Open `index.html` locally (no build, no install) to browse the components, or try each one live from the links below.
 
 <br />
 
-## ✨ Features
+## 🧩 Components
 
-- **Audience pill** and reply scope that appear on editor focus
-- **Who can reply popover** with 6 options and live label sync
-- **X toolbar** icons for photo, gif, generate image, poll, emoji, schedule, location, disclosure
-- **Auto-growing editor** with a premium-aware counter (hard 280 limit in Free mode)
-- **Post / add / reset** controls with disabled states
+A growing set of redesigned X components. More to come.
+
+| Component | What it is | Try it |
+|-----------|------------|--------|
+| **Web Composer** | A redesigned X compose box | [Live demo](https://stevederico.github.io/x-improvements/web-composer/composer-r1/index.html) |
 
 <br />
 
-## ⚡ Improvements
+## ✍️ Web Composer
 
-- **Premium-aware counter** — character counter inlined and shown based on Free/Premium status
-- **Focus-gated toolbar** — toolbar stays hidden until there's text
-- **Custom generate-image icon** — bespoke Grok/generate-image glyph in the toolbar
-- **Integrated audience menu** — audience and reply settings folded into the toolbar
+A self-contained HTML/JS prototype of a redesigned X compose box.
+
+**[▶ Try the live demo](https://stevederico.github.io/x-improvements/web-composer/composer-r1/index.html)**
+
+<div align="center">
+  <img src="screenshots/demo.gif" alt="Web Composer demo" width="75%" />
+</div>
+
+**Highlights**
+
+- **Focus-gated toolbar** — stays hidden until you focus the editor
+- **Premium-aware counter** — character count inlined and shown based on Free/Premium (hard 280 limit in Free mode)
+- **Live @mentions** — accent-colored and clickable, highlighting as you type
+- **Integrated audience menu** — audience and "who can reply" (6 options) folded into a single toolbar popup with live label sync
+- **Custom generate-image icon** — a bespoke glyph alongside photo, gif, poll, emoji, schedule, location, and disclosure
 - **Smart formatting** — bold/italic only applies to formattable text
+- **Post / add / reset** controls with proper disabled states
+
+Lives in `web-composer/` — a frozen `baseline` plus the working `composer-r1` revision.
 
 <br />
 
@@ -49,7 +53,7 @@ Or open `index.html` locally and pick a composer revision — no build or instal
 | Technology | Purpose |
 |------------|---------|
 | Vanilla JS + DOM | all interactivity and state |
-| Tailwind via CDN + inline config | styling and custom x palette |
+| Tailwind via CDN + inline config | styling and custom X palette |
 | External fonts from twimg | Chirp font family |
 
 <br />
@@ -61,5 +65,5 @@ MIT License
 <br />
 
 <div align="center">
-Single-file replica of the X compose box.
+Concept redesigns of X.com components.
 </div>
