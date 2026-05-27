@@ -1,16 +1,22 @@
 <div align="center">
 
-# x-compose-replica
+# x-improvements
 
-a self-contained html demo of the x compose box ui
+my ideas for improving the x.com compose box — a self-contained html/js prototype
 
+</div>
+
+<br />
+
+<div align="center">
+  <img src="screenshots/composer.png" alt="X compose box prototype" width="75%" />
 </div>
 
 <br />
 
 ## 🚀 Quick Start
 
-Open `index.html` in a browser. No build or install.
+Open `index.html` in a browser and pick a composer revision. No build or install.
 
 <br />
 
@@ -18,9 +24,19 @@ Open `index.html` in a browser. No build or install.
 
 - **Audience pill** and reply scope that appear on editor focus
 - **Who can reply popover** with 6 options and live label sync
-- **X toolbar** icons for photo, gif, grok, poll, emoji, schedule, location, disclosure
-- **Auto-growing textarea** and 280 char ring (yellow at 20, red over)
+- **X toolbar** icons for photo, gif, generate image, poll, emoji, schedule, location, disclosure
+- **Auto-growing editor** with a premium-aware counter (hard 280 limit in Free mode)
 - **Post / add / reset** controls with disabled states
+
+<br />
+
+## ⚡ Improvements
+
+- **Premium-aware counter** — character counter inlined and shown based on Free/Premium status
+- **Focus-gated toolbar** — toolbar stays hidden until there's text
+- **Custom generate-image icon** — bespoke Grok/generate-image glyph in the toolbar
+- **Integrated audience menu** — audience and reply settings folded into the toolbar
+- **Smart formatting** — bold/italic only applies to formattable text
 
 <br />
 

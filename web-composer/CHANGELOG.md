@@ -1,5 +1,18 @@
 - Review remaining compliance gaps
 
+0.10.64
+
+  Rename readme title to x-improvements
+  Frame readme as x.com improvement ideas
+  Add composer screenshot to readme
+  Add improvements list to readme
+  Fix stale counter feature note
+  Set github repo description
+
+0.10.63
+
+  Move readme to repo root
+
 0.10.62
 
   Remove unused composer-r2
