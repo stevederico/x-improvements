@@ -94,6 +94,22 @@
       opacity: 1;
       transition-delay: 1.5s;
     }
+    /* Demo-only: the autodemo can't trigger real :hover, so it toggles this
+       class to force the hover state + tooltip (no hover delay). */
+    .icon-btn.demo-hover {
+      background-color: var(--x-hover);
+      color: var(--x-ink);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+    }
+    .icon-btn.demo-hover svg,
+    .icon-btn.demo-hover img,
+    .icon-btn.demo-hover span[style*="mask"] {
+      transform: scale(1.08);
+    }
+    .icon-btn.demo-hover::after {
+      opacity: 1;
+      transition-delay: 0s;
+    }
 
     #composer.is-fullscreen {
       position: fixed !important;
@@ -988,6 +1004,8 @@
     postBtn.addEventListener("click", () => {
       if (postBtn.disabled) return;
       editor.innerHTML = "";
+      // Posting from fullscreen returns to the normal inline composer.
+      exitFullscreen();
       updateCount();
       // Programmatic innerHTML clear doesn't fire input/selectionchange, so the
       // cursorCounter would otherwise stay pinned at its pre-post remaining value.
@@ -1082,32 +1100,52 @@
 
 why do we keep overcomplicating things that should be simple?`;
 
-        for (const ch of tweet) {
-          if (ch === '\n') {
-            // Real Enter path (single <br> + caret anchor); double newline in the
-            // source = blank line between paragraphs.
+        // Type word-by-word (faster + more natural than char-by-char). Newlines
+        // go through the real Enter path; a blank source line = blank paragraph.
+        const lines = tweet.split('\n');
+        for (let li = 0; li < lines.length; li++) {
+          if (li > 0) {
             editor.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
-            await sleep(80);
-          } else {
-            document.execCommand('insertText', false, ch);
-            await sleep(ch === ' ' ? 29 : 17); // 2x faster cadence
+            await sleep(45);
+          }
+          const words = lines[li].split(' ');
+          for (let wi = 0; wi < words.length; wi++) {
+            document.execCommand('insertText', false, (wi > 0 ? ' ' : '') + words[wi]);
+            await sleep(35); // per-word cadence
           }
         }
-        await sleep(1800); // hold the near-limit state with the counter visible
+        await sleep(1500); // hold the near-limit state with the counter visible
 
-        // 4. Fullscreen via Cmd+. — editor expands, toolbar drops to bottom
+        // 4. Hover the custom generate-image icon → tooltip appears
+        const genImageBtn = document.querySelector('button[aria-label="Generate image"]');
+        if (genImageBtn) {
+          genImageBtn.classList.add('demo-hover');
+          await sleep(2000);
+          genImageBtn.classList.remove('demo-hover');
+          await sleep(500);
+        }
+
+        // Beat: let the finished, composed tweet sit before fullscreen opens.
+        await sleep(1600);
+
+        // 5. Fullscreen via Cmd+. — editor expands, toolbar drops to bottom
         document.dispatchEvent(new KeyboardEvent('keydown', { key: '.', metaKey: true, bubbles: true }));
         await sleep(1700); // settle into fullscreen
 
-        // 5. Audience + reply menu — now opens upward from the bottom toolbar
+        // Beat: let the expanded fullscreen view register before the menu opens.
+        await sleep(1000);
+
+        // 6. Audience + reply menu — now opens upward from the bottom toolbar
         audienceIcon.click();
         await sleep(3600);
         document.body.click();
         await sleep(900);
 
-        // 6. Exit fullscreen via the floating close button
-        if (closeBtn) closeBtn.click();
-        await sleep(2400); // final inline state hold
+        // 7. Click Post (still in fullscreen) — sends it, clears the composer,
+        //    and exits fullscreen back to the clean inline state.
+        const postBtn = document.getElementById('postBtn');
+        if (postBtn && !postBtn.disabled) postBtn.click();
+        await sleep(2400); // final empty state hold
        } finally {
         demoRunning = false;
        }

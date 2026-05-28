@@ -1,5 +1,13 @@
 - Review remaining compliance gaps
 
+0.16.0
+
+  Exit fullscreen when posting
+  Add generate image hover beat to demo
+  Type demo tweet word by word
+  Add beats before fullscreen and audience
+  End demo by posting from fullscreen
+
 0.15.0
 
   Fix fullscreen counter stuck on exit

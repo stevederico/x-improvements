@@ -32,6 +32,7 @@ A self-contained HTML/JS prototype of a redesigned X compose box.
 
 - **fullscreen mode** — floating close button in upper right, Cmd+. to toggle, persistent toolbar, Escape to exit
 - **icons on focus** — toolbar stays hidden until you focus the editor
+- **generate image** — custom Grok image-generation icon added to the toolbar
 - **no dropdowns in writing area** — audience and "who can reply" (6 options) folded into a single toolbar popup with live label sync
 - **no counter for premium** — character count inlined and shown based on Free/Premium (hard 280 limit in Free mode)
 - **no bold for usernames + links** — bold/italic only applies to formattable text, not usernames or links
