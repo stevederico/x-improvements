@@ -30,12 +30,11 @@ A self-contained HTML/JS prototype of a redesigned X compose box.
 
 **Highlights**
 
-- **Fullscreen mode** — topbar, persistent toolbar, upward menus, Escape exit; more menu entry auto-hides when active
 - **Focus-gated toolbar** — stays hidden until you focus the editor
-- **More menu** — Add thread, Disclosure, Fullscreen, Preview, Drafts in one dropdown
 - **Premium-aware counter** — character count inlined and shown based on Free/Premium (hard 280 limit in Free mode)
 - **Integrated audience menu** — audience and "who can reply" (6 options) folded into a single toolbar popup with live label sync
 - **Smart formatting** — bold/italic only applies to formattable text, not usernames or links
+- **Fullscreen mode** — floating close button in upper right, Cmd+. to toggle, persistent toolbar, Escape to exit
 
 Lives in `web-composer/` — a frozen `baseline` plus the working `composer-r1` revision.
 
