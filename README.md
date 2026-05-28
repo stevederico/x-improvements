@@ -25,7 +25,7 @@ A self-contained HTML/JS prototype of a redesigned X compose box.
 **[▶ Try the live demo](https://stevederico.github.io/x-improvements/web-composer/composer-r1/index.html)**
 
 <div align="center">
-  <img src="screenshots/demo.gif" alt="Web Composer demo" width="75%" />
+  <img src="screenshots/composer-demo.gif" alt="Web Composer demo" width="75%" />
 </div>
 
 **Improvements**
