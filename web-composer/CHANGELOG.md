@@ -1,5 +1,13 @@
 - Review remaining compliance gaps
 
+0.13.0
+
+  Rework autodemo recorder script
+  Type follow-up question to show counter
+  Demo fullscreen toggle in autodemo
+  Drop smart formatting demo beat
+  Color cursor counter gray
+
 0.12.1
 
   Inset grok glyph mask

@@ -540,7 +540,7 @@
       cursorCounter.textContent = remaining;
       cursorCounter.style.backgroundColor = "transparent";
       cursorCounter.style.border = "none";
-      cursorCounter.style.color = "var(--x-ink)";
+      cursorCounter.style.color = "var(--x-dim)";
       cursorCounter.style.fontSize = "11px";
       cursorCounter.style.padding = "0";
       cursorCounter.style.borderRadius = "0";
@@ -994,80 +994,59 @@
       async function runDemo() {
         const editor = document.getElementById('editor');
         const audienceIcon = document.getElementById('audienceIcon');
-        const italicBtn = document.getElementById('italicBtn');
         const debugBar = document.getElementById('debugBar');
-        const genImageBtn = document.querySelector('button[aria-label="Generate image"]');
+        const closeBtn = document.getElementById('fullscreenCloseBtn');
 
         if (debugBar) debugBar.style.display = 'none';
 
-        // 1. Initial collapsed state
-        await sleep(1600);
+        // 1. Initial collapsed state — empty placeholder
+        await sleep(1400);
 
+        // 2. Focus reveals the toolbar
         editor.focus();
-        await sleep(480); // shorter pause after focus before paste (tighter pacing)
+        await sleep(550);
 
-        // 2. INSTANT paste (much cleaner than typing for demo)
-        const fullText = `1 of my favorite quotes from @dhh on @lexfridman pod re: @levelsio stack
+        // 3. Paste the post (the quote) → @mention/link highlighting kicks in
+        const basePost = `1 of my favorite quotes from @dhh on @lexfridman pod re: @levelsio stack
 
 "Our computers today are almost infinitely faster than what they were in the '90s. So shouldn't we be able to work in even easier ways?"
 
-we should look at the 90s as overcomplicated, not today`;
+`;
 
-        editor.innerText = fullText;
+        editor.innerText = basePost;
+        // caret to end so typing continues after the post
+        const endRange = document.createRange();
+        endRange.selectNodeContents(editor);
+        endRange.collapse(false);
+        const sel0 = window.getSelection();
+        sel0.removeAllRanges();
+        sel0.addRange(endRange);
         editor.dispatchEvent(new InputEvent('input', { bubbles: true }));
-        await sleep(650); // let @highlighting + toolbar settle
+        await sleep(1500); // read the post, highlighting settles
 
-        // 3. Audience popup (hold long enough to see all 6 options)
+        // 3b. Type a follow-up question (free mode) → the live character
+        //     counter appears near the caret and ticks down toward 280
+        editor.focus();
+        const followUp = "why do we keep overcomplicating things that should be simple?";
+        for (const ch of followUp) {
+          document.execCommand('insertText', false, ch);
+          await sleep(ch === ' ' ? 120 : 80); // human-ish cadence
+        }
+        await sleep(1800); // hold the near-limit state with the counter visible
+
+        // 4. Audience + reply menu (hold long enough to read all options)
         audienceIcon.click();
-        await sleep(4200);
+        await sleep(3600);
         document.body.click();
-        await sleep(650);
+        await sleep(750);
 
-        // 4. Hover the custom generate-image icon (show tooltip)
-        if (genImageBtn) {
-          genImageBtn.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
-          await sleep(2100);
-          genImageBtn.dispatchEvent(new MouseEvent('mouseout', { bubbles: true }));
-        }
-        await sleep(450);
+        // 5. Fullscreen via Cmd+. — editor expands, toolbar drops to bottom
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: '.', metaKey: true, bubbles: true }));
+        await sleep(4200);
 
-        // 5. Smart formatting demo: non-formattable first (@mention)
-        // Select "@dhh"
-        const dhhRange = findTextRange(editor, '@dhh');
-        if (dhhRange) {
-          const sel = window.getSelection();
-          sel.removeAllRanges();
-          sel.addRange(dhhRange);
-          await sleep(1850); // prove no popover appears for non-formattable
-          sel.removeAllRanges();
-        }
-
-        // 6. Now select formattable text (the quote) → popover appears
-        const quoteRange = findTextRange(editor, 'Our computers today are almost infinitely faster');
-        if (quoteRange) {
-          const sel = window.getSelection();
-          sel.removeAllRanges();
-          sel.addRange(quoteRange);
-          await sleep(2400); // popover visible
-          if (italicBtn) italicBtn.click();
-        }
-
-        await sleep(4800); // final state hold
-      }
-
-      function findTextRange(root, searchText) {
-        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-        let node;
-        while ((node = walker.nextNode())) {
-          const idx = node.textContent.indexOf(searchText);
-          if (idx !== -1) {
-            const range = document.createRange();
-            range.setStart(node, idx);
-            range.setEnd(node, idx + searchText.length);
-            return range;
-          }
-        }
-        return null;
+        // 6. Exit fullscreen via the floating close button
+        if (closeBtn) closeBtn.click();
+        await sleep(2400); // final inline state hold
       }
 
       runDemo().catch(console.error);
