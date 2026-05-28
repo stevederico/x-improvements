@@ -1,5 +1,17 @@
 - Review remaining compliance gaps
 
+0.12.0
+
+  Remove more menu dropdown
+  Restore plus thread button
+  Float fullscreen close button
+  Tighten fullscreen line height
+  Add Cmd dot fullscreen toggle
+  Preserve caret on truncate
+  Reset premium on clear
+  Add autodemo recorder script
+  Refresh grok image asset
+
 0.11.0
 
   Fix spaces wiping editor mid-typing
