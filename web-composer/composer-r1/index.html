@@ -111,6 +111,19 @@
       transition-delay: 0s;
     }
 
+    /* Post button press feedback */
+    #postBtn { transition: background-color .12s ease, transform .12s ease; }
+    #postBtn:enabled:hover { transform: scale(1.04); }
+    #postBtn:enabled:active { transform: scale(0.93); }
+    @keyframes postPop {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(0.9); }
+      70%  { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    /* Triggered programmatically (the autodemo click can't fire :active). */
+    #postBtn.post-pop { animation: postPop .32s ease; }
+
     #composer.is-fullscreen {
       position: fixed !important;
       inset: 0;
@@ -1137,14 +1150,21 @@ why do we keep overcomplicating things that should be simple?`;
 
         // 6. Audience + reply menu — now opens upward from the bottom toolbar
         audienceIcon.click();
-        await sleep(3600);
-        document.body.click();
-        await sleep(900);
+        await sleep(2000);
+
+        // Close the menu, then take a longer beat before posting.
+        closePopup();
+        await sleep(2800);
 
         // 7. Click Post (still in fullscreen) — sends it, clears the composer,
         //    and exits fullscreen back to the clean inline state.
         const postBtn = document.getElementById('postBtn');
-        if (postBtn && !postBtn.disabled) postBtn.click();
+        if (postBtn && !postBtn.disabled) {
+          postBtn.classList.add('post-pop');
+          postBtn.addEventListener('animationend', () => postBtn.classList.remove('post-pop'), { once: true });
+          await sleep(120);     // let the press read before it clears
+          postBtn.click();
+        }
         await sleep(2400); // final empty state hold
        } finally {
         demoRunning = false;
