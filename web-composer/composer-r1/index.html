@@ -10,7 +10,7 @@
     :root {
       --x-bg:#000; --x-ink:#e7e9ea; --x-dim:#71767b; --x-line:#2f3336; --x-btn:#3a3a3c;
       --x-hover:#202327; --x-tooltip-bg:#181818; --x-menu-bg:#16181c;
-      --x-menu-shadow:0 0 15px rgba(255,255,255,0.15); --x-pop-shadow:0 4px 12px rgba(0,0,0,0.6);
+      --x-menu-shadow:0 4px 12px rgba(0,0,0,0.6); --x-pop-shadow:0 4px 12px rgba(0,0,0,0.6);
       --x-overlay:rgba(255,255,255,0.06); --x-overlay-strong:rgba(255,255,255,0.10);
       --x-divider:rgba(255,255,255,0.20); --x-menu-border:rgba(255,255,255,0.10);
       --x-post-bg:#eff3f4; --x-post-text:#0f1419; --x-post-hover:#d7dbdc;
@@ -18,13 +18,13 @@
     html.light {
       --x-bg:#fff; --x-ink:#0f1419; --x-dim:#536471; --x-line:#cfd9de; --x-btn:#e1e8ed;
       --x-hover:#e7ecf0; --x-tooltip-bg:#0f1419; --x-menu-bg:#fff;
-      --x-menu-shadow:0 0 15px rgba(0,0,0,0.15); --x-pop-shadow:0 4px 12px rgba(0,0,0,0.25);
+      --x-menu-shadow:0 4px 12px rgba(0,0,0,0.25); --x-pop-shadow:0 4px 12px rgba(0,0,0,0.25);
       --x-overlay:rgba(15,20,25,0.06); --x-overlay-strong:rgba(15,20,25,0.10);
       --x-divider:rgba(15,20,25,0.20); --x-menu-border:rgba(15,20,25,0.10);
       --x-post-bg:#0f1419; --x-post-text:#fff; --x-post-hover:#272c30;
     }
     /* themed surfaces that use inline utilities — ID rules override per theme */
-    #moreMenu, #combinedPopup { background: var(--x-menu-bg) !important; box-shadow: var(--x-menu-shadow) !important; color: var(--x-ink); }
+    #moreMenu, #combinedPopup { background: var(--x-menu-bg) !important; box-shadow: var(--x-menu-shadow) !important; border: 1px solid var(--x-menu-border) !important; color: var(--x-ink); }
     #moreMenu button:hover, #combinedPopup button:hover { background: var(--x-overlay) !important; }
     #formatPopover { background: var(--x-menu-bg) !important; border-color: var(--x-menu-border) !important; box-shadow: var(--x-pop-shadow) !important; }
     #formatPopover button:hover { background: var(--x-overlay-strong) !important; }
@@ -288,7 +288,7 @@
 
               <div
                 id="moreMenu"
-                class="absolute left-0 top-full mt-2 z-50 hidden w-60 overflow-hidden rounded-2xl bg-black py-2 shadow-[0_0_15px_rgba(255,255,255,0.15)] text-sm"
+                class="absolute left-0 top-full mt-2 z-50 hidden w-60 overflow-hidden rounded-2xl bg-black py-2 border border-white/10 text-sm"
               >
                 <div class="px-4 pt-1 pb-2">
                   <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Compose</div>
@@ -345,7 +345,7 @@
 
               <div
                 id="combinedPopup"
-                class="absolute right-0 top-full mt-2 z-50 hidden w-[340px] overflow-hidden rounded-2xl bg-black py-2 shadow-[0_0_15px_rgba(255,255,255,0.15)] text-sm"
+                class="absolute right-0 top-full mt-2 z-50 hidden w-[340px] overflow-hidden rounded-2xl bg-black py-2 border border-white/10 text-sm"
               >
                 <div class="px-4 pt-1 pb-2">
                   <div class="text-[11px] font-bold uppercase tracking-widest text-x-dim mb-1">Audience</div>

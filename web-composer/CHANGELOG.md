@@ -1,5 +1,11 @@
 - Review remaining compliance gaps
 
+0.10.76
+
+  Remove menu glow blur
+  Use crisp drop shadow
+  Add border for definition
+
 0.10.75
 
   Restore composer demo gif
