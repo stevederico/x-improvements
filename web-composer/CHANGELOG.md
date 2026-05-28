@@ -1,5 +1,15 @@
 - Review remaining compliance gaps
 
+0.15.0
+
+  Fix fullscreen counter stuck on exit
+  Add demo play replay button
+  Type demo tweet instead of pasting
+  Double demo typing speed
+  Open audience menu inside fullscreen
+  Align generate image icon
+  Add composer bottom padding
+
 0.14.0
 
   Normalize Enter to single br
