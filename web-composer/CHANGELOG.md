@@ -1,5 +1,9 @@
 - Review remaining compliance gaps
 
+0.12.1
+
+  Inset grok glyph mask
+
 0.12.0
 
   Remove more menu dropdown
