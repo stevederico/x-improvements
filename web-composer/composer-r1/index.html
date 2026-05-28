@@ -181,6 +181,13 @@
       margin-top: 0;
       margin-bottom: 8px;
     }
+    /* Demo recording only: the zoomed page has a short effective viewport, so
+       the upward-opening fullscreen audience menu would clip at the top. Scale
+       it down (anchored bottom-right at the icon) so the whole menu fits. */
+    body.demo-recording #composer.is-fullscreen #combinedPopup {
+      transform: scale(0.82);
+      transform-origin: bottom right;
+    }
 
     /* Fullscreen close button — floating top-right */
     #fullscreenCloseBtn {
@@ -1087,6 +1094,7 @@
       async function runDemo({ hideDebugBar = false } = {}) {
         if (demoRunning) return;
         demoRunning = true;
+        window.__demoDone = false; // recorder waits on this to trim the tail
        try {
         const editor = document.getElementById('editor');
         const audienceIcon = document.getElementById('audienceIcon');
@@ -1097,12 +1105,11 @@
         // the dev button so you can run it again.
         if (debugBar) debugBar.style.display = hideDebugBar ? 'none' : '';
 
-        // 1. Initial collapsed state — empty placeholder
-        await sleep(1400);
-
-        // 2. Focus reveals the toolbar
+        // 1. Brief initial state, then focus reveals the toolbar (kept short so
+        //    the video doesn't open on a long blank box)
+        await sleep(300);
         editor.focus();
-        await sleep(550);
+        await sleep(350);
 
         // 3. Type the whole post live → @mentions/links highlight as each handle
         //    completes, and the character counter appears as we near 280.
@@ -1129,26 +1136,17 @@ why do we keep overcomplicating things that should be simple?`;
         }
         await sleep(1500); // hold the near-limit state with the counter visible
 
-        // 4. Hover the custom generate-image icon → tooltip appears
-        const genImageBtn = document.querySelector('button[aria-label="Generate image"]');
-        if (genImageBtn) {
-          genImageBtn.classList.add('demo-hover');
-          await sleep(2000);
-          genImageBtn.classList.remove('demo-hover');
-          await sleep(500);
-        }
-
         // Beat: let the finished, composed tweet sit before fullscreen opens.
         await sleep(1600);
 
-        // 5. Fullscreen via Cmd+. — editor expands, toolbar drops to bottom
+        // 4. Fullscreen via Cmd+. — editor expands, toolbar drops to bottom
         document.dispatchEvent(new KeyboardEvent('keydown', { key: '.', metaKey: true, bubbles: true }));
         await sleep(1700); // settle into fullscreen
 
         // Beat: let the expanded fullscreen view register before the menu opens.
         await sleep(1000);
 
-        // 6. Audience + reply menu — now opens upward from the bottom toolbar
+        // 5. Audience + reply menu — now opens upward from the bottom toolbar
         audienceIcon.click();
         await sleep(2000);
 
@@ -1156,7 +1154,7 @@ why do we keep overcomplicating things that should be simple?`;
         closePopup();
         await sleep(2800);
 
-        // 7. Click Post (still in fullscreen) — sends it, clears the composer,
+        // 6. Click Post (still in fullscreen) — sends it, clears the composer,
         //    and exits fullscreen back to the clean inline state.
         const postBtn = document.getElementById('postBtn');
         if (postBtn && !postBtn.disabled) {
@@ -1165,9 +1163,10 @@ why do we keep overcomplicating things that should be simple?`;
           await sleep(120);     // let the press read before it clears
           postBtn.click();
         }
-        await sleep(2400); // final empty state hold
+        await sleep(1000); // ~1s on the clean initial state to close
        } finally {
         demoRunning = false;
+        window.__demoDone = true;
        }
       }
 
@@ -1186,7 +1185,13 @@ why do we keep overcomplicating things that should be simple?`;
       }
 
       // Auto-run for recordings / shareable links: composer.html?autodemo
+      // Optional &zoom=N scales the whole page (recording at higher native res
+      // with the same tight framing — CSS zoom, unlike transform, leaves the
+      // fixed-position fullscreen intact).
       if (location.search.includes('autodemo')) {
+        const z = new URLSearchParams(location.search).get('zoom');
+        if (z) document.body.style.zoom = z;
+        document.body.classList.add('demo-recording');
         runDemo({ hideDebugBar: true }).catch(console.error);
       }
 

@@ -1,5 +1,14 @@
 - Review remaining compliance gaps
 
+0.17.0
+
+  Animate post button press and pop
+  Add zoom param for hi-res recording
+  Scale fullscreen menu to fit recording
+  Remove generate image beat from demo
+  Trim demo intro and closing holds
+  Signal demo completion for clean trim
+
 0.16.0
 
   Exit fullscreen when posting
