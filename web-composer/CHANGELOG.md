@@ -1,5 +1,18 @@
 - Review remaining compliance gaps
 
+0.11.0
+
+  Fix spaces wiping editor mid-typing
+  Preserve bold italic when truncating
+  Collapse toolbar on fullscreen exit
+  Escape quotes in highlighter attributes
+  Skip emails in mention regex
+  Guard localStorage in private mode
+  Refresh cursor counter after post
+  Preserve drag selection through mentions
+  Inline Grok icon drop base64 mask
+  Drop dead textarea autoGrow
+
 0.10.76
 
   Remove menu glow blur
