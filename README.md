@@ -28,13 +28,13 @@ A self-contained HTML/JS prototype of a redesigned X compose box.
   <img src="screenshots/demo.gif" alt="Web Composer demo" width="75%" />
 </div>
 
-**Highlights**
+**Improvements**
 
-- **Focus-gated toolbar** — stays hidden until you focus the editor
-- **Premium-aware counter** — character count inlined and shown based on Free/Premium (hard 280 limit in Free mode)
-- **Integrated audience menu** — audience and "who can reply" (6 options) folded into a single toolbar popup with live label sync
-- **Smart formatting** — bold/italic only applies to formattable text, not usernames or links
-- **Fullscreen mode** — floating close button in upper right, Cmd+. to toggle, persistent toolbar, Escape to exit
+- **fullscreen mode** — floating close button in upper right, Cmd+. to toggle, persistent toolbar, Escape to exit
+- **icons on focus** — toolbar stays hidden until you focus the editor
+- **no dropdowns in writing area** — audience and "who can reply" (6 options) folded into a single toolbar popup with live label sync
+- **no counter for premium** — character count inlined and shown based on Free/Premium (hard 280 limit in Free mode)
+- **no bold for usernames + links** — bold/italic only applies to formattable text, not usernames or links
 
 Lives in `web-composer/` — a frozen `baseline` plus the working `composer-r1` revision.
 
