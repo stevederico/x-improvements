@@ -1,5 +1,12 @@
 - Review remaining compliance gaps
 
+0.14.0
+
+  Normalize Enter to single br
+  Fix line jump on paste then type
+  Anchor caret with zero width space
+  Strip anchor from length checks
+
 0.13.0
 
   Rework autodemo recorder script

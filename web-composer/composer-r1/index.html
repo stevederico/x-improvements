@@ -377,8 +377,13 @@
     const LIMIT = 280;
     let isPremium = false; // false = Free (hard 280), true = Premium (long form)
     let lastInputWasEnter = false;
+    // Zero-width space used as a transient caret anchor after Enter (see the
+    // keydown handler). It never counts toward the post and is stripped on the
+    // next input. Filtered out of every length/empty check below.
+    const ZW = "​";
+    const stripZW = (s) => (s || "").split(ZW).join("");
 
-    const isEditorEmpty = () => ((editor.innerText || '').trim().length === 0);
+    const isEditorEmpty = () => (stripZW(editor.innerText || '').trim().length === 0);
 
     // Caret offset in innerText units (newlines included). We can't hand-count nodes,
     // because the browser inserts <div> blocks on Enter whose boundaries also count as
@@ -444,7 +449,7 @@
     function highlightInteractiveText(el, savedPos = null) {
       const pos = savedPos !== null ? savedPos : getCaretPosition(el);
 
-      let text = el.innerText || '';
+      let text = stripZW(el.innerText || '');
       // Escape ampersand first, then angles AND quotes. Quotes matter because the
       // captured @handle / URL gets interpolated into data-* attributes below — a
       // raw `"` in a typed URL would otherwise break out of the attribute.
@@ -477,7 +482,7 @@
     }
 
     const updateCount = () => {
-      let text = editor.innerText || '';
+      let text = stripZW(editor.innerText || '');
 
       // Force truly empty DOM so CSS :empty placeholder shows again after clears.
       // textContent ignores stray <br>/<img> droppings (which keep :empty from
@@ -510,7 +515,7 @@
         return;
       }
 
-      const text = editor.innerText || "";
+      const text = stripZW(editor.innerText || "");
       const len = [...text].length;
       const remaining = LIMIT - len;
 
@@ -792,11 +797,61 @@
 
     // Let the browser handle Enter natively (it inserts a clean <br>); just flag it
     // so the highlight rebuild skips one input cycle and doesn't fight the new line.
+    // Normalize Enter to a single, clean <br>. Left to the browser, Enter at the
+    // end of the text inserts a <div><br></div> block — innerText counts it as
+    // TWO newlines (a phantom blank line) and Chromium/Brave can render it a line
+    // lower than where the text lands once you type, so the line "jumps." We
+    // insert one <br> and park the caret in a zero-width text node on the new
+    // line (Chrome re-homes the caret to the previous line if it sits at an empty
+    // trailing position, dropping the next char on the wrong line). The ZW anchor
+    // is stripped on the next input, so it never reaches the post.
     editor.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        lastInputWasEnter = true;
-      }
+      if (e.key !== "Enter" || e.shiftKey || e.isComposing) return;
+      e.preventDefault();
+
+      const sel = window.getSelection();
+      if (!sel.rangeCount) return;
+      const range = sel.getRangeAt(0);
+      range.deleteContents();
+
+      const br = document.createElement("br");
+      range.insertNode(br);
+
+      const anchor = document.createTextNode(ZW);
+      br.after(anchor);
+
+      const caret = document.createRange();
+      caret.setStart(anchor, 1);
+      caret.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(caret);
+
+      lastInputWasEnter = true;
+      updateCount();
+      updateCursorCounter();
     });
+
+    // Drop the zero-width caret anchor(s) once a real character is typed, keeping
+    // the caret where the user expects it (offset shifts left by the anchors that
+    // sat before it).
+    function stripCaretAnchors() {
+      if (!editor.textContent.includes(ZW)) return;
+      const pos = getCaretPosition(editor);
+      const it = editor.innerText || "";
+      let zwBefore = 0;
+      for (let i = 0; i < pos && i < it.length; i++) if (it[i] === ZW) zwBefore++;
+
+      const walker = document.createTreeWalker(editor, NodeFilter.SHOW_TEXT, null);
+      const dirty = [];
+      let n;
+      while ((n = walker.nextNode())) if (n.textContent.includes(ZW)) dirty.push(n);
+      dirty.forEach((node) => {
+        node.textContent = stripZW(node.textContent);
+        if (node.textContent === "") node.remove();
+      });
+
+      setCaretPosition(editor, Math.max(0, pos - zwBefore));
+    }
 
     // Trim text from the end of the editor's DOM to bring innerText length below
     // LIMIT, without rebuilding via `innerText = …` (which would flatten every
@@ -841,6 +896,9 @@
     }
 
     editor.addEventListener("input", () => {
+      // Clear the transient Enter caret anchor before anything measures length.
+      stripCaretAnchors();
+
       // Hard limit enforcement for free users — skip right after Enter so newline can settle
       if (!isPremium && !lastInputWasEnter) {
         truncateEditorToLimit();
