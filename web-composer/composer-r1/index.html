@@ -94,23 +94,6 @@
       opacity: 1;
       transition-delay: 1.5s;
     }
-    /* Demo-only: the autodemo can't trigger real :hover, so it toggles this
-       class to force the hover state + tooltip (no hover delay). */
-    .icon-btn.demo-hover {
-      background-color: var(--x-hover);
-      color: var(--x-ink);
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
-    }
-    .icon-btn.demo-hover svg,
-    .icon-btn.demo-hover img,
-    .icon-btn.demo-hover span[style*="mask"] {
-      transform: scale(1.08);
-    }
-    .icon-btn.demo-hover::after {
-      opacity: 1;
-      transition-delay: 0s;
-    }
-
     /* Post button press feedback */
     #postBtn { transition: background-color .12s ease, transform .12s ease; }
     #postBtn:enabled:hover { transform: scale(1.04); }

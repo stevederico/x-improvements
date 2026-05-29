@@ -1,5 +1,9 @@
 - Review remaining compliance gaps
 
+0.18.0
+
+  Remove dead demo hover styles
+
 0.17.0
 
   Animate post button press and pop
