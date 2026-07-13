@@ -15,6 +15,7 @@ A growing set of redesigned X components. More to come.
 | Component | What it is | Try it |
 |-----------|------------|--------|
 | **Web Composer** | A redesigned X compose box | [Live demo](https://stevederico.github.io/x-improvements/web-composer/composer-r1/index.html) |
+| **Notifications** | The notifications screen | [Live demo](https://stevederico.github.io/x-improvements/notifications/r1/index.html) |
 
 <br />
 
@@ -38,6 +39,16 @@ A self-contained HTML/JS prototype of a redesigned X compose box.
 - **no bold for usernames + links** — bold/italic only applies to formattable text, not usernames or links
 
 Lives in `web-composer/` — a frozen `baseline` plus the working `composer-r1` revision.
+
+<br />
+
+## 🛎️ Notifications
+
+A self-contained HTML/JS prototype of the X notifications screen (All / Verified / Mentions tabs).
+
+**[▶ Try the live demo](https://stevederico.github.io/x-improvements/notifications/r1/index.html)**
+
+Lives in `notifications/` — a frozen `baseline/` (current X from console dump) plus the working `r1/` revision with tabs, mark-read, simulate new, etc.
 
 <br />
 

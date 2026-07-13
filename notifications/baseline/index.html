@@ -1,0 +1,238 @@
+<!doctype html>
+<!-- FROZEN BASELINE CONTROL - 2026-06-16 - exact recreation of the current X notifications screen (All tab) pulled from live DOM dump. Self-contained, offline. -->
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notifications • X</title>
+  <style>
+    @font-face {
+      font-family: TwitterChirp;
+      src: url(assets/Chirp-Regular.woff2) format('woff2');
+      font-weight: 400; font-display: swap;
+    }
+    @font-face {
+      font-family: TwitterChirp;
+      src: url(assets/Chirp-Medium.woff2) format('woff2');
+      font-weight: 500; font-display: swap;
+    }
+    @font-face {
+      font-family: TwitterChirp;
+      src: url(assets/Chirp-Bold.woff2) format('woff2');
+      font-weight: 700; font-display: swap;
+    }
+  </style>
+  <script src="assets/tailwind.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['TwitterChirp', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+          },
+          colors: {
+            x: {
+              accent: "#1D9BF0",
+              accentHover: "#1A8CD8",
+              ink: "#e7e9ea",
+              dim: "#71767b",
+              line: "#2f3336",
+              hover: "#202327",
+              notifUnread: "#1d9bf033",
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    .notification-row:hover { background-color: #202327; }
+    .notif-icon { width: 32px; display: flex; justify-content: center; }
+    .notif-avatar { width: 32px; height: 32px; border-radius: 9999px; object-fit: cover; flex-shrink: 0; }
+    .post-snippet {
+      margin-top: 2px;
+      padding-left: 12px;
+      border-left: 2px solid #2f3336;
+      color: #71767b;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+    .x-tab {
+      position: relative;
+      padding: 12px 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #71767b;
+      flex: 1;
+      text-align: center;
+    }
+    .x-tab.active { color: #e7e9ea; }
+    .x-tab.active:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 56px;
+      height: 4px;
+      background: #1D9BF0;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-black text-x-ink font-sans">
+  <div class="mx-auto max-w-[620px] border border-x-line">
+    <!-- header -->
+    <div class="sticky top-0 z-10 bg-black/90 backdrop-blur border-b border-x-line px-4 py-3">
+      <div class="text-xl font-bold tracking-tight">Notifications</div>
+    </div>
+
+    <!-- tabs -->
+    <div class="flex border-b border-x-line text-[14px]">
+      <button data-tab="all" class="x-tab active">All</button>
+      <button data-tab="verified" class="x-tab">Verified</button>
+      <button data-tab="mentions" class="x-tab">Mentions</button>
+    </div>
+
+    <!-- notifications list -->
+    <div id="list" class="divide-y divide-x-line text-[15px]">
+      <!-- follow / activity -->
+      <div class="notification-row flex gap-3 px-4 py-3 cursor-pointer" data-type="all">
+        <div class="notif-icon mt-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 fill-current text-[#1D9BF0]"><g><path d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z"></path></g></svg>
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <img src="assets/avatar.jpg" alt="" class="notif-avatar" />
+          </div>
+          <div class="mt-1 leading-snug">
+            <span class="font-bold">Steve Derico</span>
+            <span class="text-x-dim"> @stevederico </span>
+            followed you
+          </div>
+        </div>
+      </div>
+
+      <!-- like 1 -->
+      <div class="notification-row flex gap-3 px-4 py-3 cursor-pointer" data-type="all">
+        <div class="notif-icon mt-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 fill-current text-[#f91880]"><g><path d="M20.884 13.19c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.897 1.81.846 4.17-.514 6.67z"></path></g></svg>
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <img src="assets/avatar.jpg" alt="" class="notif-avatar" />
+          </div>
+          <div class="mt-1 leading-snug">
+            <span class="font-bold">Some Engineer</span>
+            <span class="text-x-dim"> @levelsio </span>
+            liked your post
+          </div>
+          <div class="post-snippet mt-1">
+            composer + a opus cleanup after every few commits is my new flow
+          </div>
+        </div>
+      </div>
+
+      <!-- like 2 -->
+      <div class="notification-row flex gap-3 px-4 py-3 cursor-pointer" data-type="all">
+        <div class="notif-icon mt-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 fill-current text-[#f91880]"><g><path d="M20.884 13.19c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.897 1.81.846 4.17-.514 6.67z"></path></g></svg>
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <img src="assets/avatar.jpg" alt="" class="notif-avatar" />
+          </div>
+          <div class="mt-1 leading-snug">
+            <span class="font-bold">Claude Team</span>
+            <span class="text-x-dim"> @claudeai </span>
+            liked your post
+          </div>
+          <div class="post-snippet mt-1">
+            100+ tps makes the iterations feel instant
+          </div>
+        </div>
+      </div>
+
+      <!-- heart / like with longer quote -->
+      <div class="notification-row flex gap-3 px-4 py-3 cursor-pointer" data-type="all">
+        <div class="notif-icon mt-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 fill-current text-[#f91880]"><g><path d="M20.884 13.19c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.897 1.81.846 4.17-.514 6.67z"></path></g></svg>
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <img src="assets/avatar.jpg" alt="" class="notif-avatar" />
+          </div>
+          <div class="mt-1 leading-snug">
+            <span class="font-bold">Lex Fridman</span>
+            <span class="text-x-dim"> @lexfridman </span>
+            liked your post
+          </div>
+          <div class="post-snippet mt-1">
+            most web/ts work doesn't need opus max effort
+          </div>
+        </div>
+      </div>
+
+      <!-- follow style again -->
+      <div class="notification-row flex gap-3 px-4 py-3 cursor-pointer" data-type="all">
+        <div class="notif-icon mt-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 fill-current text-[#1D9BF0]"><g><path d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z"></path></g></svg>
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <img src="assets/avatar.jpg" alt="" class="notif-avatar" />
+          </div>
+          <div class="mt-1 leading-snug">
+            <span class="font-bold">Dan Abramov</span>
+            <span class="text-x-dim"> @dan_abramov </span>
+            followed you
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-4 text-center text-x-dim text-sm border-t border-x-line">
+      You're all caught up (prototype)
+    </div>
+  </div>
+
+  <script>
+    // Minimal tab filtering to match the real tabs behavior
+    const tabs = document.querySelectorAll('[data-tab]');
+    const list = document.getElementById('list');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const filter = tab.dataset.tab;
+        const rows = list.querySelectorAll('.notification-row');
+
+        rows.forEach(row => {
+          if (filter === 'all') {
+            row.style.display = '';
+          } else if (filter === 'verified') {
+            // Verified tab only shows "important" ones (likes from verified in this mock)
+            row.style.display = row.textContent.includes('liked') ? '' : 'none';
+          } else if (filter === 'mentions') {
+            row.style.display = 'none'; // no pure mentions in this frozen snapshot
+          }
+        });
+      });
+    });
+
+    // Click anywhere on a row to "read" it (simple visual feedback like real X)
+    list.addEventListener('click', (e) => {
+      const row = e.target.closest('.notification-row');
+      if (row) {
+        row.style.transition = 'opacity .2s';
+        row.style.opacity = '0.65';
+        setTimeout(() => {
+          row.style.opacity = '1';
+        }, 220);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!doctype html>
+<!-- notifications r1 - refined with exact structure/SVGs/header/tabs from your Elements tab paste for closer match to live X -->
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notifications / X</title>
+  <style>
+    @font-face { font-family: TwitterChirp; src: url(assets/Chirp-Regular.woff2) format('woff2'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: TwitterChirp; src: url(assets/Chirp-Medium.woff2) format('woff2'); font-weight: 500; font-display: swap; }
+    @font-face { font-family: TwitterChirp; src: url(assets/Chirp-Bold.woff2) format('woff2'); font-weight: 700; font-display: swap; }
+    :root { --x-bg:#000; --x-ink:#e7e9ea; --x-dim:#71767b; --x-line:#2f3336; --x-hover:#202327; --x-accent:#1d9bf0; --x-pink:#f91880; }
+    html,body { height:100%; margin:0; background:#000; color:var(--x-ink); font-family:TwitterChirp,system-ui,sans-serif; font-size:15px; line-height:1.3; }
+    .sidebar { width:68px; border-right:1px solid var(--x-line); display:flex; flex-direction:column; align-items:center; padding-top:4px; background:#000; }
+    .sidebar .nav-item { width:50px; height:50px; display:flex; align-items:center; justify-content:center; border-radius:9999px; margin:2px 0; color:var(--x-ink); position:relative; }
+    .sidebar .nav-item:hover { background:var(--x-hover); }
+    .sidebar .nav-item.active { font-weight:700; }
+    .main-col { border-right:1px solid var(--x-line); flex:1; max-width:600px; overflow:auto; background:#000; }
+    .primary-column { /* matches data-testid=primaryColumn */ }
+    .notif-header { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--x-line); }
+    .notif-header h2 { font-size:20px; font-weight:700; margin:0; }
+    .gear { display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:9999px; }
+    .gear:hover { background:var(--x-hover); }
+    .tabs-nav { display:flex; border-bottom:1px solid var(--x-line); }
+    .tab { flex:1; text-align:center; padding:14px 0; font-weight:700; color:var(--x-dim); position:relative; cursor:pointer; text-decoration:none; }
+    .tab.active { color:var(--x-ink); }
+    .tab.active:after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:56px; height:4px; background:var(--x-accent); border-radius:9999px; }
+    .notif-list { position:relative; }
+    .notif-item { display:flex; gap:12px; padding:12px 16px; border-bottom:1px solid var(--x-line); cursor:pointer; }
+    .notif-item:hover { background:var(--x-hover); }
+    .notif-icon { width:32px; flex-shrink:0; display:flex; justify-content:center; padding-top:2px; }
+    .notif-content { flex:1; min-width:0; }
+    .avatar-row { display:flex; margin-bottom:4px; }
+    .avatar-row img { width:32px; height:32px; border-radius:9999px; border:2px solid #000; margin-right:-8px; object-fit:cover; }
+    .avatar-row img:last-child { margin-right:0; }
+    .notif-text { color:var(--x-ink); }
+    .notif-text .name { font-weight:700; }
+    .verified { color:#1d9bf0; display:inline-flex; align-items:center; margin-left:2px; vertical-align:middle; }
+    .time { color:var(--x-dim); margin-left:4px; }
+    .quoted { margin-top:4px; padding-left:12px; border-left:2px solid var(--x-line); color:var(--x-dim); font-size:14px; }
+    .action-bar { display:flex; gap:32px; margin-top:8px; color:var(--x-dim); font-size:13px; }
+    .action-bar > div { display:flex; align-items:center; }
+    .sidebar-bottom { margin-top:auto; padding:12px 0; display:flex; justify-content:center; }
+    .compose-btn { width:50px; height:50px; background:#fff; color:#000; border-radius:9999px; display:flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body>
+  <!-- Notifications pane only (no sidebar, to match screenshot) -->
+  <div class="main-col" style="max-width: 600px; margin: 0 auto; border-right: 1px solid var(--x-line); min-height: 100vh; background: #000; padding-top: 0;">
+      <!-- Simplified tight header to reduce space above -->
+      <div class="notif-header" style="padding: 8px 16px; border-bottom: 1px solid var(--x-line);">
+        <h2 style="font-size: 20px; font-weight: 700; margin: 0; color: var(--x-ink);">Notifications</h2>
+        <a href="/settings/notifications" aria-label="Settings" style="display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:9999px; color: var(--x-ink); text-decoration:none;">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" style="fill: currentColor;">
+            <g><path d="M10.54 1.75h2.92l1.57 2.36c.11.17.32.25.53.21l2.53-.59 2.17 2.17-.58 2.54c-.05.2.04.41.21.53l2.36 1.57v2.92l-2.36 1.57c-.17.12-.26.33-.21.53l.58 2.54-2.17 2.17-2.53-.59c-.21-.04-.42.04-.53.21l-1.57 2.36h-2.92l-1.58-2.36c-.11-.17-.32-.25-.52-.21l-2.54.59-2.17-2.17.58-2.54c.05-.2-.03-.41-.21-.53l-2.35-1.57v-2.92L4.1 8.97c.18-.12.26-.33.21-.53L3.73 5.9 5.9 3.73l2.54.59c.2.04.41-.04.52-.21l1.58-2.36zm1.07 2l-.98 1.47C10.05 6.08 9 6.5 7.99 6.27l-1.46-.34-.6.6.33 1.46c.24 1.01-.18 2.07-1.05 2.64l-1.46.98v.78l1.46.98c.87.57 1.29 1.63 1.05 2.64l-.33 1.46.6.6 1.46-.34c1.01-.23 2.06.19 2.64 1.05l.98 1.47h.78l.97-1.47c.58-.86 1.63-1.28 2.65-1.05l1.45.34.61-.6-.34-1.46c-.23-1.01.18-2.07 1.05-2.64l1.47-.98v-.78l-1.47-.98c-.87-.57-1.28-1.63-1.05-2.64l.34-1.46-.61-.6-1.45.34c-1.02.23-2.07-.19-2.65-1.05l-.97-1.47h-.78zM12 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5c.82 0 1.5-.67 1.5-1.5s-.68-1.5-1.5-1.5zM8.5 12c0-1.93 1.56-3.5 3.5-3.5 1.93 0 3.5 1.57 3.5 3.5s-1.57 3.5-3.5 3.5c-1.94 0-3.5-1.57-3.5-3.5z"></path></g>
+          </svg>
+        </a>
+      </div>
+
+        <!-- Tabs from your paste (All active, Priority, Mentions) -->
+        <div class="tabs-nav">
+          <a class="tab active" onclick="filterTab(this, 'all')">All</a>
+          <a class="tab" onclick="filterTab(this, 'priority')">Priority</a>
+          <a class="tab" onclick="filterTab(this, 'mentions')">Mentions</a>
+        </div>
+
+        <!-- List matching the screenshot exactly -->
+        <div class="notif-list" style="min-height: 2000px;">
+          <!-- 1. New post notifications (bell) -->
+          <div class="notif-item" data-type="priority">
+            <div class="notif-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="color:#1d9bf0; fill:currentColor;" width="24" height="24"><g><path d="M11.996 2c-4.062 0-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958C19.48 5.017 16.054 2 11.996 2zM9.171 18h5.658c-.412 1.165-1.523 2-2.829 2s-2.417-.835-2.829-2z"></path></g></svg>
+            </div>
+            <div class="notif-content">
+              <div class="avatar-row">
+                <img src="assets/avatar.jpg" style="width:28px;height:28px;">
+                <span style="margin-left:4px; font-size:10px;">𝕏</span>
+              </div>
+              <div class="notif-text">
+                New post notifications for <span class="name">Garry Tan</span><span class="verified" style="color:#1d9bf0;">✓</span><span style="color:#f59e0b; font-size:10px;">🟧</span> and <span class="name">SpaceX</span><span class="verified" style="color:#eab308;">✓</span> <span class="time">· 31s</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Heart Igor liked reply -->
+          <div class="notif-item" data-type="priority">
+            <div class="notif-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="color:#f91880; fill:currentColor;" width="24" height="24"><g><path d="M20.884 13.19c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path></g></svg>
+            </div>
+            <div class="notif-content">
+              <div class="avatar-row">
+                <img src="assets/avatar.jpg" style="width:28px;height:28px;">
+              </div>
+              <div class="notif-text">
+                <span class="name">Igor Blink</span><span class="verified" style="color:#1d9bf0;">✓</span> liked your reply <span class="time">· 1h</span>
+              </div>
+              <div class="quoted">congrats on selling the condo haha</div>
+            </div>
+          </div>
+
+          <!-- 3. Person Mo followed -->
+          <div class="notif-item" data-type="priority">
+            <div class="notif-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="color:#1d9bf0; fill:currentColor;" width="24" height="24"><g><path d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z"></path></g></svg>
+            </div>
+            <div class="notif-content">
+              <div class="avatar-row">
+                <img src="assets/avatar.jpg" style="width:28px;height:28px;">
+              </div>
+              <div class="notif-text">
+                <span class="name">Mo Monuments</span><span class="verified" style="color:#1d9bf0;">✓</span> followed you <span class="time">· 2h</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Heart eric group like -->
+          <div class="notif-item" data-type="priority">
+            <div class="notif-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="color:#f91880; fill:currentColor;" width="24" height="24"><g><path d="M20.884 13.19c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path></g></svg>
+            </div>
+            <div class="notif-content">
+              <div class="avatar-row">
+                <img src="assets/avatar.jpg" style="width:28px;height:28px;"><img src="assets/avatar.jpg" style="width:28px;height:28px;"><img src="assets/avatar.jpg" style="width:28px;height:28px;"><img src="assets/avatar.jpg" style="width:28px;height:28px;"><img src="assets/avatar.jpg" style="width:28px;height:28px;">
+              </div>
+              <div class="notif-text">
+                <span class="name">eric zakariasson</span><span class="verified" style="color:#1d9bf0;">✓</span><span style="background:#000; color:#fff; font-size:9px; padding:0 1px; border-radius:1px;">■</span> and 3 others liked your post <span class="time">· 5h</span>
+              </div>
+              <div class="quoted">cannot wait to kill my claude subscription for this</div>
+              <div class="quoted">currently using composer 2.5 + opus combo</div>
+            </div>
+          </div>
+
+          <!-- 5. Person Ray group follow -->
+          <div class="notif-item" data-type="priority">
+            <div class="notif-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="color:#1d9bf0; fill:currentColor;" width="24" height="24"><g><path d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z"></path></g></svg>
+            </div>
+            <div class="notif-content">
+              <div class="avatar-row">
+                <img src="assets/avatar.jpg" style="width:28px;height:28px;"><img src="assets/avatar.jpg" style="width:28px;height:28px;"><img src="assets/avatar.jpg" style="width:28px;height:28px;"><img src="assets/avatar.jpg" style="width:28px;height:28px;"><img src="assets/avatar.jpg" style="width:28px;height:28px;">
+              </div>
+              <div class="notif-text">
+                <span class="name">Ray Fernando</span><span class="verified" style="color:#1d9bf0;">✓</span> and 4 others followed you <span class="time">· 5h</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Heart Tibor liked 2 posts -->
+          <div class="notif-item" data-type="priority">
+            <div class="notif-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="color:#f91880; fill:currentColor;" width="24" height="24"><g><path d="M20.884 13.19c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path></g></svg>
+            </div>
+            <div class="notif-content">
+              <div class="avatar-row">
+                <img src="assets/avatar.jpg" style="width:28px;height:28px;">
+              </div>
+              <div class="notif-text">
+                <span class="name">Tibor (Tee)</span><span class="verified" style="color:#1d9bf0;">✓</span> liked 2 of your posts <span class="time">· 7h</span>
+              </div>
+              <div class="quoted">LIVE: @levelsio at @cursor_ai compile 26 x.com/i/broadcasts/1...</div>
+            </div>
+          </div>
+
+          <!-- 7. Reply Sunita -->
+          <div class="notif-item" data-type="mentions">
+            <div class="notif-icon" style="padding-top:0">
+              <img src="assets/avatar.jpg" style="width:32px;height:32px;border-radius:9999px;">
+            </div>
+            <div class="notif-content">
+              <div class="notif-text">
+                <span class="name">Sunita Rao</span><span class="verified" style="color:#1d9bf0;">✓</span><span style="background:#111; color:#fff; font-size:9px; padding:0 1px; border-radius:1px;">■</span> <span style="color:var(--x-dim);">@sunrao</span> <span class="time">· 8h</span>
+              </div>
+              <div style="color:var(--x-dim); font-size:14px;">Replying to <span style="color:var(--x-accent);">@stevederico</span></div>
+              <div>so glad you could make it!</div>
+              <div class="action-bar">
+                <div>💬</div>
+                <div>🔁</div>
+                <div style="color:var(--x-pink)">♥ 1</div>
+                <div>📊 26</div>
+                <div>🔖</div>
+                <div>↗</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Heart Sunita last group like -->
+          <div class="notif-item" data-type="priority">
+            <div class="notif-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="color:#f91880; fill:currentColor;" width="24" height="24"><g><path d="M20.884 13.19c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path></g></svg>
+            </div>
+            <div class="notif-content">
+              <div class="avatar-row">
+                <img src="assets/avatar.jpg" style="width:28px;height:28px;"><img src="assets/avatar.jpg" style="width:28px;height:28px;"><img src="assets/avatar.jpg" style="width:28px;height:28px;"><img src="assets/avatar.jpg" style="width:28px;height:28px;">
+              </div>
+              <div class="notif-text">
+                <span class="name">Sunita Rao</span><span class="verified" style="color:#1d9bf0;">✓</span><span style="background:#111; color:#fff; font-size:9px; padding:0 1px; border-radius:1px;">■</span> and 2 others liked your post <span class="time">· 8h</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filterTab(el, type) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.notif-item').forEach(item => {
+        if (type === 'all') item.style.display = '';
+        else item.style.display = (item.dataset.type === type) ? '' : 'none';
+      });
+    }
+    // Click marks as read (visual)
+    document.querySelector('.notif-list').addEventListener('click', e => {
+      const item = e.target.closest('.notif-item');
+      if (item) item.style.opacity = item.style.opacity === '0.6' ? '1' : '0.6';
+    });
+    // Default to Priority as in your screenshot
+    setTimeout(() => {
+      const p = document.querySelector('.tab:nth-child(2)');
+      if (p) p.click();
+    }, 50);
+  </script>
+</body>
+</html>
