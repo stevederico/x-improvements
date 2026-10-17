@@ -16,6 +16,7 @@ A growing set of redesigned X components. More to come.
 |-----------|------------|--------|
 | **Web Composer** | A redesigned X compose box | [Live demo](https://stevederico.github.io/x-improvements/web-composer/composer-r1/index.html) |
 | **Notifications** | The notifications screen | [Live demo](https://stevederico.github.io/x-improvements/notifications/r1/index.html) |
+| **Account Messages** | Every email X sent you, in the app | [Live demo](https://stevederico.github.io/x-improvements/account-messages/r1/index.html) |
 
 <br />
 
@@ -49,6 +50,27 @@ A self-contained HTML/JS prototype of the X notifications screen (All / Verified
 **[▶ Try the live demo](https://stevederico.github.io/x-improvements/notifications/r1/index.html)**
 
 Lives in `notifications/` — a frozen `baseline/` (current X from console dump) plus the working `r1/` revision with tabs, mark-read, simulate new, etc.
+
+<br />
+
+## 📬 Account Messages
+
+A new screen under Security and account access that lists every message X has sent to the account. If an email isn't listed here, it isn't from X.
+
+**[▶ Try the live demo](https://stevederico.github.io/x-improvements/account-messages/r1/index.html)**
+
+<div align="center">
+  <img src="screenshots/account-messages-demo.gif" alt="Account Messages demo" width="40%" />
+</div>
+
+**Improvements**
+
+- **phishing check** — compare any email in your inbox against the real list in the app
+- **security and other tabs** — logins, connected apps and password changes kept apart from everything else
+- **verified sender** — each message shows it was sent by X with a Mark Certificate
+- **one tap from settings** — sits next to Security, Apps and sessions, and Connected accounts
+
+Lives in `account-messages/r1/`. Add `?s=1`, `?s=2` or `?s=3` to the URL to hold one screen.
 
 <br />
 
