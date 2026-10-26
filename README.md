@@ -20,6 +20,23 @@ A growing set of redesigned X components. More to come.
 
 <br />
 
+## Ideas
+
+Replies to [one thing you'd change on x.com](https://x.com/yagiznizipli/status/2103515711041597539).
+
+| Idea | What it is | Status | Post |
+|------|------------|--------|------|
+| **Notifications** | Subscribe and unsubscribe is inconsistent, delayed, and it is hard to tell a reply from a post | [Prototype](https://stevederico.github.io/x-improvements/notifications/r1/index.html) | [link](https://x.com/stevederico/status/2103601283840270557) |
+| **Account Messages** | A verified list of emails X actually sent, so phishing stands out | [Prototype](https://stevederico.github.io/x-improvements/account-messages/r1/index.html) | [link](https://x.com/stevederico/status/2103568147551035833) |
+| **Web Composer** | The web compose box needs a refresh | [Prototype](https://stevederico.github.io/x-improvements/web-composer/composer-r1/index.html) | [link](https://x.com/stevederico/status/2103567854662795293) |
+| **Grok on action bar** | Move the Grok button onto the post action bar (like, reply, repost) | Idea | [link](https://x.com/stevederico/status/2103567648059801986) |
+| **X Resume** | A place for your resume on X, instead of LinkedIn | [hardwork.dev](https://hardwork.dev) | [link](https://x.com/stevederico/status/2103567396355314070) |
+| **Follow QR** | A QR code for following people IRL | [wallpaper](https://hardwork.dev/wallpaper) | [link](https://x.com/stevederico/status/2103566936349274513) |
+| **Edit replies** | Edit a reply in the first minute | Idea | [link](https://x.com/stevederico/status/2103566771265700260) |
+| **X TV** | A TV app for X video | [Watch X](https://watch.grok.me) | [link](https://x.com/stevederico/status/2103566182389539100) |
+
+<br />
+
 ## ✍️ Web Composer
 
 A self-contained HTML/JS prototype of a redesigned X compose box.
@@ -49,6 +66,10 @@ A self-contained HTML/JS prototype of the X notifications screen (All / Verified
 
 **[▶ Try the live demo](https://stevederico.github.io/x-improvements/notifications/r1/index.html)**
 
+**Improvements**
+
+- **subscribe / unsubscribe** — inconsistent, delayed, and it is hard to tell a reply from a post
+
 Lives in `notifications/` — a frozen `baseline/` (current X from console dump) plus the working `r1/` revision with tabs, mark-read, simulate new, etc.
 
 <br />
@@ -71,6 +92,46 @@ A new screen under Security and account access that lists every message X has se
 - **one tap from settings** — sits next to Security, Apps and sessions, and Connected accounts
 
 Lives in `account-messages/r1/`. Add `?s=1`, `?s=2` or `?s=3` to the URL to hold one screen.
+
+<br />
+
+## ✨ Grok on action bar
+
+Move the Grok button onto the post action bar, next to like, reply, and repost.
+
+Idea. No prototype in this repo yet.
+
+<br />
+
+## 🧾 X Resume
+
+A place for your resume on X. Professional profiles with X login, instead of LinkedIn.
+
+**[▶ hardwork.dev](https://hardwork.dev)**
+
+<br />
+
+## 📷 Follow QR
+
+A QR code for following people IRL. Add it to a phone wallpaper so a scan opens the profile.
+
+**[▶ hardwork.dev/wallpaper](https://hardwork.dev/wallpaper)**
+
+<br />
+
+## ✏️ Edit replies
+
+Edit a reply in the first minute after posting.
+
+Idea. No prototype in this repo yet.
+
+<br />
+
+## 📺 X TV
+
+A TV app for X video. Videos from For You and Following, one place on TV, desktop, and mobile.
+
+**[▶ Watch X](https://watch.grok.me)**
 
 <br />
 
