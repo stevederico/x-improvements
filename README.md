@@ -22,18 +22,26 @@ A growing set of redesigned X components. More to come.
 
 ## Ideas
 
-Replies to [one thing you'd change on x.com](https://x.com/yagiznizipli/status/2103515711041597539).
+Posted as [what I would fix as X Product](https://x.com/stevederico/status/2114823484635488366), with the numbered list in [this post](https://x.com/stevederico/status/2103572138401874425) and more in [this thread](https://x.com/stevederico/status/2053928691437289856). Also replies to [one thing you'd change on x.com](https://x.com/yagiznizipli/status/2103515711041597539).
 
 | Idea | What it is | Status | Post |
 |------|------------|--------|------|
-| **Notifications** | Subscribe and unsubscribe is inconsistent, delayed, and it is hard to tell a reply from a post | [Prototype](https://stevederico.github.io/x-improvements/notifications/r1/index.html) | [link](https://x.com/stevederico/status/2103601283840270557) |
+| **X TV** | Watch X videos in one place on TV, web, and mobile | [watchx.grok.me](https://watchx.grok.me) | [link](https://x.com/stevederico/status/2103566182389539100) |
 | **Account Messages** | A verified list of emails X actually sent, so phishing stands out | [Prototype](https://stevederico.github.io/x-improvements/account-messages/r1/index.html) | [link](https://x.com/stevederico/status/2103568147551035833) |
 | **Web Composer** | The web compose box needs a refresh | [Prototype](https://stevederico.github.io/x-improvements/web-composer/composer-r1/index.html) | [link](https://x.com/stevederico/status/2103567854662795293) |
-| **Grok on action bar** | Move the Grok button onto the post action bar (like, reply, repost) | Idea | [link](https://x.com/stevederico/status/2103567648059801986) |
-| **X Resume** | A place for your resume on X, instead of LinkedIn | [hardwork.dev](https://hardwork.dev) | [link](https://x.com/stevederico/status/2103567396355314070) |
+| **X Resume** | Job history and education on the X profile, instead of LinkedIn | [hardwork.dev](https://hardwork.dev) | [link](https://x.com/stevederico/status/2103567396355314070) |
 | **Follow QR** | A QR code for following people IRL | [wallpaper](https://hardwork.dev/wallpaper) | [link](https://x.com/stevederico/status/2103566936349274513) |
+| **Grok on action bar** | Move the Grok button onto the post action bar, not hidden in the corner | Idea | [link](https://x.com/stevederico/status/2103567648059801986) |
+| **Premium Analytics** | Dropdown bug fixes, verified timeline impressions, and an all-time range | Idea | [link](https://x.com/stevederico/status/2103572138401874425) |
+| **Notifications** | Subscribe and unsubscribe is inconsistent, delayed, and it is hard to tell a reply from a post | [Prototype](https://stevederico.github.io/x-improvements/notifications/r1/index.html) | [link](https://x.com/stevederico/status/2103601283840270557) |
 | **Edit replies** | Edit a reply in the first minute | Idea | [link](https://x.com/stevederico/status/2103566771265700260) |
-| **X TV** | A TV app for X video | [Watch X](https://watch.grok.me) | [link](https://x.com/stevederico/status/2103566182389539100) |
+| **Same-avatar mute** | Auto-mute a reply that copies the poster's avatar | Idea | [link](https://x.com/stevederico/status/2053520406557175845) |
+| **Grok iOS icon** | Put Grok next to the right thumb. The current icon is under 30px | Idea | [link](https://x.com/stevederico/status/2059409028321783949) |
+| **Timeline formatting** | Show bold and italic in the timeline, not only after a tap | Idea | [link](https://x.com/stevederico/status/2054654250924581234) |
+| **Duplicate video** | Flag if the same or similar video is already on X | Idea | [link](https://x.com/stevederico/status/2080748402711961685) |
+| **Sidebar** | Kill chat vs home jitter, and let every tab collapse | Idea | [link](https://x.com/stevederico/status/2052496657410097218) |
+| **Grok model picker** | Show the model name. Expert / Fast / Heavy should pick itself | Idea | [link](https://x.com/stevederico/status/2080331021971828883) |
+| **SuperGrok Heavy** | SuperGrok Heavy should include Premium+ | Idea | [link](https://x.com/stevederico/status/2055006011426230434) |
 
 <br />
 
@@ -105,7 +113,7 @@ Idea. No prototype in this repo yet.
 
 ## 🧾 X Resume
 
-A place for your resume on X. Professional profiles with X login, instead of LinkedIn.
+Job history and education on the X profile. Professional profiles with X login, instead of LinkedIn.
 
 **[▶ hardwork.dev](https://hardwork.dev)**
 
@@ -131,7 +139,71 @@ Idea. No prototype in this repo yet.
 
 A TV app for X video. Videos from For You and Following, one place on TV, desktop, and mobile.
 
-**[▶ Watch X](https://watch.grok.me)**
+**[▶ Watch X](https://watchx.grok.me)**
+
+<br />
+
+## 📊 Premium Analytics
+
+The Premium analytics dashboard needs dropdown bug fixes, verified timeline impression support, and an all-time range instead of a 1 year cap.
+
+Idea. No prototype in this repo yet.
+
+<br />
+
+## 🚫 Same-avatar mute
+
+Auto-mute a reply that uses the same avatar as the poster. Obvious impersonation at reply time.
+
+Idea. No prototype in this repo yet.
+
+<br />
+
+## 👍 Grok iOS icon
+
+On iOS, put the Grok icon next to the right thumb. Swap it with views. The current target is under 30px.
+
+Idea. No prototype in this repo yet.
+
+<br />
+
+## 🔤 Timeline formatting
+
+Bold and italic should show in the timeline. Today they only appear after you tap the post.
+
+Idea. No prototype in this repo yet.
+
+<br />
+
+## 🎞 Duplicate video
+
+When a video is uploaded, show if the same or similar video is already on X.
+
+Idea. No prototype in this repo yet.
+
+<br />
+
+## 📐 Sidebar
+
+Kill the jitter between chat and home. Make the desktop sidebar collapsible for every tab, not only chat.
+
+Idea. No prototype in this repo yet.
+
+<br />
+
+## 🧠 Grok model picker
+
+Show the model name in the UI. The Expert / Fast / Heavy dropdown is clunky. Pick automatically, with an optional keyword to force a workflow.
+
+Idea. No prototype in this repo yet.
+
+<br />
+
+## ⭐ SuperGrok Heavy
+
+SuperGrok Heavy should include Premium+.
+
+Idea. No prototype in this repo yet.
 
 <br />
 
